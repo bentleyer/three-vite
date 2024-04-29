@@ -17,6 +17,8 @@
     "gsap": "^3.12.5",
     "pinia": "^2.1.7",
     "three": "^0.160.1",
+    "three-mesh-bvh": "^0.7.3",
+    "three-pathfinding": "^1.2.0",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"
   },
