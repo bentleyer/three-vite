@@ -52,6 +52,11 @@ const router = createRouter({
             path: '/pathFinding',
             name: 'pathFinding',
             component: () => import('@/views/three/pathFinding/index.vue')
+        },
+        {
+            path: '/lasvism',
+            name: 'lasvism',
+            component: () => import('@/views/three/lasvism/index.vue')
         }
     ]
 });

@@ -23,9 +23,9 @@ let scene;
 let controls;
 let stats;
 const mixers: THREE.AnimationMixer[] = [];
-let count = 1000;
-const sceneModel = new THREE.Group()
-const modelArr = []
+const count = 100;
+const sceneModel = new THREE.Group();
+const modelArr = [];
 
 
 function initControl() {
@@ -51,14 +51,14 @@ function initRender() {
     renderer.shadowMap.enabled = true;
     // renderer.shadowMap.type = THREE.BasicShadowMap
     // renderer.shadowMap.type = THREE.VSMShadowMap;
-    console.log('renderer', renderer)
+    console.log('renderer', renderer);
 
 }
 
 function initScene() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffffff);
-    scene.matrixWorldAutoUpdate = false
+    scene.matrixWorldAutoUpdate = false;
 }
 
 function initState() {
@@ -67,8 +67,8 @@ function initState() {
 }
 
 function initLight() {
-    const ambient = new THREE.AmbientLight(0xffffff);
-    scene.add(ambient);
+    // const ambient = new THREE.AmbientLight(0xffffff);
+    // scene.add(ambient);
 
     const light = new THREE.DirectionalLight(0xffffff, 3);
     light.position.set(-100, -100, 100);
@@ -85,7 +85,7 @@ function initLight() {
     light.shadow.mapSize.width = SHADOW_MAP_WIDTH;
     light.shadow.mapSize.height = SHADOW_MAP_HEIGHT;
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
     scene.add(ambientLight);
 
     scene.add(light);
@@ -191,12 +191,17 @@ function makeMerge(model) {
 
     for (let i = 0; i < count; i++) {
         const geometries = [];
-        let material;
+        // let material;
+        let material = new THREE.MeshPhongMaterial({
+            color: 'white',
+            side: THREE.FrontSide
+        });
 
         const model2 = model.clone();
 
         model2.traverse((obj) => {
-            if (obj instanceof THREE.Mesh) {
+
+            if (obj.isMesh) {
                 const newGeometry = obj.geometry.clone();
 
                 const matrix = new THREE.Matrix4();
@@ -212,6 +217,7 @@ function makeMerge(model) {
 
                 matrix.compose(position.clone(), quaternion, scale.clone());
                 newGeometry.applyMatrix4(matrix);
+
                 geometries.push(newGeometry);
                 if (!material) {
                     material = new THREE.MeshStandardMaterial({
@@ -235,7 +241,7 @@ function makeMerge(model) {
 }
 
 function makeMergeAll(model) {
-    const mergedGeometries = []
+    const mergedGeometries = [];
     let material;
 
     for (let i = 0; i < count; i++) {
@@ -271,7 +277,7 @@ function makeMergeAll(model) {
             }
         });
         const mergedGeometry = BufferGeometryUtils.mergeGeometries(geometries, true);
-        mergedGeometries.push(mergedGeometry)
+        mergedGeometries.push(mergedGeometry);
 
     }
     const mergedAllGeo = BufferGeometryUtils.mergeGeometries(mergedGeometries, true);
@@ -286,12 +292,12 @@ function makeMergeAll(model) {
 
 function makeNaive(model) {
     for (let i = 0; i < count; i++) {
-        const model2 = model.clone()
+        const model2 = model.clone();
         model2.position.set(Math.random() * 1000 - 500, Math.random() * 1000 - 500, 0);
-        sceneModel.add(model2)
-        modelArr.push(model2)
+        sceneModel.add(model2);
+        modelArr.push(model2);
     }
-    scene.add(sceneModel)
+    scene.add(sceneModel);
 
 }
 
@@ -312,7 +318,7 @@ function animationMesh() {
         sceneModel.position.x + 0.1,
         sceneModel.position.y + 0.1,
         sceneModel.position.z
-    )
+    );
 
     /* sceneModel.children.forEach((child) => {
         const rotationSpeed = {
@@ -348,7 +354,7 @@ function initLoader() {
 
 
         const model = gltf.scene;
-        console.log('model', model)
+        console.log('model', model);
         model.castShadow = true;
         model.traverse((obj) => {
             if (obj.isObject3D) {
@@ -360,18 +366,18 @@ function initLoader() {
 
         // makeBatch(model)
         // makeInstance(model);
-        // makeMerge(model)
+        makeMerge(model);
         // makeMergeAll(model)
 
-        makeNaive(model)
+        // makeNaive(model)
         // scene.add(model);
 
-        console.log('gltf', gltf);
+        console.log('gltf', gltf, scene);
 
         // mixer = new THREE.AnimationMixer(model);
         // mixer.clipAction(gltf.animations[0]).play();
         // mixers.push(mixer);
-        scene.updateMatrixWorld()
+        scene.updateMatrixWorld();
         animate();
 
     }, undefined, function (e) {
@@ -402,8 +408,29 @@ initLight();
 // initBatch()
 initLoader();
 
+function createBufferGeometry() {
+    const geometry = new THREE.BufferGeometry();
+    // 创建一个简单的矩形. 在这里我们左上和右下顶点被复制了两次。
+    // 因为在两个三角面片里，这两个顶点都需要被用到。
+    const vertices = new Float32Array([
+        -1.0, -1.0, 1.0,
+	 1.0, -1.0, 1.0,
+	 1.0, 1.0, 1.0,
 
-const geometry = new THREE.PlaneGeometry(100, 100);
+	 1.0, 1.0, 1.0,
+        -1.0, 1.0, 1.0,
+        -1.0, -1.0, 1.0
+    ]);
+
+    // itemSize = 3 因为每个顶点都是一个三元组。
+    geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    return geometry
+}
+
+
+// const geometry = new THREE.PlaneGeometry(100, 100);
+const geometry = new THREE.BoxGeometry(100, 100, 1);
+
 const planeMaterial = new THREE.MeshPhongMaterial({ color: 0xffdd99 });
 const material = new THREE.ShadowMaterial({ color: 'red' });
 // material.opacity = 0.2;
@@ -416,7 +443,18 @@ ground2.position.set(0, 0, 0);
 ground2.scale.set(10, 10, 10);
 ground2.castShadow = false;
 ground2.receiveShadow = true;
-scene.add(ground2);
+
+const buffer1 = createBufferGeometry()
+buffer1.computeVertexNormals()
+
+const ground3 = new THREE.Mesh(buffer1, planeMaterial);
+ground3.scale.set(1000, 1000, 10);
+ground3.castShadow = false;
+ground3.receiveShadow = true;
+
+
+
+scene.add(ground3);
 
 
 // ground.position.set(0, 0, 5);
@@ -452,29 +490,29 @@ window.onresize = function () {
 const axesHelper = new THREE.AxesHelper(500);
 scene.add(axesHelper);
 
-console.log('scene', scene)
+console.log('scene', scene);
 
 function animate() {
     requestAnimationFrame(animate);
 
     const delta = clock.getDelta();
     // console.log('render', renderer.info.render);
-    let sceneObjCount = 0
-    scene.traverse((obj) => {
-        if (obj.isObject3D) {
-          sceneObjCount++
-        }
-    })
-    console.log('render', sceneObjCount)
+    // let sceneObjCount = 0
+    // scene.traverse((obj) => {
+    //     if (obj.isObject3D) {
+    //       sceneObjCount++
+    //     }
+    // })
+    // console.log('render', sceneObjCount)
     // scene.updateMatrixWorld()
-    sceneModel.updateMatrixWorld()
+    sceneModel.updateMatrixWorld();
     // scene.children.forEach((model) => {
     //     if (model.isLight || model.isGroup || model.isMesh) {
     //         model.updateMatrixWorld()
     //     }
     // })
 
-    animationMesh()
+    // animationMesh()
 
     // mixer.update( delta );
     for (const mixer of mixers) {

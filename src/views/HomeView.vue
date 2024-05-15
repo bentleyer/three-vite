@@ -12,6 +12,7 @@
         <RouterLink to="/shadow">shadow</RouterLink>
         <RouterLink to="/shadowCar">shadowCar</RouterLink>
         <RouterLink to="/pathFinding">pathFinding</RouterLink>
+        <RouterLink to="/lasvism">lasvism</RouterLink>
 
     <!-- <TheWelcome /> -->
     </main>
