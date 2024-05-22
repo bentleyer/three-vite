@@ -8,8 +8,10 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
+// import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
 // import myModel from '@/assets/models/gltf/Audi.glb?url';
+import myModel from '@/assets/models/gltf/tree_min.glb?url';
+
 
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 
@@ -23,7 +25,7 @@ let scene;
 let controls;
 let stats;
 const mixers: THREE.AnimationMixer[] = [];
-const count = 100;
+const count = 1000;
 const sceneModel = new THREE.Group();
 const modelArr = [];
 
@@ -37,7 +39,7 @@ function initControl() {
 function initCamera() {
 
     camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set(0, -100, 50);
+    camera.position.set(0, -100, 100);
 }
 
 function initRender() {
@@ -51,7 +53,6 @@ function initRender() {
     renderer.shadowMap.enabled = true;
     // renderer.shadowMap.type = THREE.BasicShadowMap
     // renderer.shadowMap.type = THREE.VSMShadowMap;
-    console.log('renderer', renderer);
 
 }
 
@@ -293,7 +294,7 @@ function makeMergeAll(model) {
 function makeNaive(model) {
     for (let i = 0; i < count; i++) {
         const model2 = model.clone();
-        model2.position.set(Math.random() * 1000 - 500, Math.random() * 1000 - 500, 0);
+        model2.position.set(Math.random() * 1000 - 500, Math.random() * 1000 - 500, 10);
         sceneModel.add(model2);
         modelArr.push(model2);
     }
@@ -302,25 +303,8 @@ function makeNaive(model) {
 }
 
 function animationMesh() {
-    /* modelArr.forEach((child) => {
-        const rotationSpeed = {
-            x: 0,
-            y: 0.01,
-            z: 0
-        }
-        child.rotation.set(
-            child.rotation.x + rotationSpeed.x,
-            child.rotation.y + rotationSpeed.y,
-            child.rotation.z + rotationSpeed.z
-        );
-    }) */
-    sceneModel.position.set(
-        sceneModel.position.x + 0.1,
-        sceneModel.position.y + 0.1,
-        sceneModel.position.z
-    );
 
-    /* sceneModel.children.forEach((child) => {
+    sceneModel.children.forEach((child) => {
         const rotationSpeed = {
             x: 0,
             y: 0.01,
@@ -341,7 +325,7 @@ function animationMesh() {
         //     child.position.y + Math.sin(100 * rotationSpeed.y),
         //     child.position.z + Math.sin(rotationSpeed.z)
         // );
-    }) */
+    })
 }
 
 function initLoader() {
@@ -354,7 +338,6 @@ function initLoader() {
 
 
         const model = gltf.scene;
-        console.log('model', model);
         model.castShadow = true;
         model.traverse((obj) => {
             if (obj.isObject3D) {
@@ -366,10 +349,10 @@ function initLoader() {
 
         // makeBatch(model)
         // makeInstance(model);
-        makeMerge(model);
+        // makeMerge(model);
         // makeMergeAll(model)
 
-        // makeNaive(model)
+        makeNaive(model)
         // scene.add(model);
 
         console.log('gltf', gltf, scene);
@@ -414,10 +397,10 @@ function createBufferGeometry() {
     // 因为在两个三角面片里，这两个顶点都需要被用到。
     const vertices = new Float32Array([
         -1.0, -1.0, 1.0,
-	 1.0, -1.0, 1.0,
-	 1.0, 1.0, 1.0,
+	    1.0, -1.0, 1.0,
+	    1.0, 1.0, 1.0,
 
-	 1.0, 1.0, 1.0,
+	    1.0, 1.0, 1.0,
         -1.0, 1.0, 1.0,
         -1.0, -1.0, 1.0
     ]);
@@ -452,30 +435,8 @@ ground3.scale.set(1000, 1000, 10);
 ground3.castShadow = false;
 ground3.receiveShadow = true;
 
-
-
 scene.add(ground3);
 
-
-// ground.position.set(0, 0, 5);
-// // ground.rotation.x = -Math.PI / 2;
-// ground.scale.set(10, 10, 10);
-
-// ground.castShadow = false;
-// ground.receiveShadow = true;
-// scene.add(ground);
-
-// const cubeGeometry = new THREE.CapsuleGeometry(10, 10, 40, 88);
-
-// const cubes1 = new THREE.Mesh(cubeGeometry, planeMaterial);
-
-// cubes1.position.y = 0;
-// cubes1.position.z = 3;
-
-// cubes1.castShadow = true;
-// cubes1.receiveShadow = false;
-
-// scene.add(cubes1);
 
 
 window.onresize = function () {
@@ -490,29 +451,31 @@ window.onresize = function () {
 const axesHelper = new THREE.AxesHelper(500);
 scene.add(axesHelper);
 
+function addCameraHelper() {
+    const width = 100
+    const height = 100
+
+    const camera2 = new THREE.OrthographicCamera( width / - 2, width / 2, height / 2, height / - 2, 1, 1000 );
+    camera2.position.set(100, 100, 30)
+    const helper = new THREE.CameraHelper( camera2 );
+    scene.add( helper );
+    camera2.updateMatrixWorld()
+    camera2.updateProjectionMatrix()
+    helper.update()
+}
+
+
 console.log('scene', scene);
 
 function animate() {
     requestAnimationFrame(animate);
-
-    const delta = clock.getDelta();
-    // console.log('render', renderer.info.render);
-    // let sceneObjCount = 0
-    // scene.traverse((obj) => {
-    //     if (obj.isObject3D) {
-    //       sceneObjCount++
-    //     }
-    // })
-    // console.log('render', sceneObjCount)
+    // scene.updateMatrixWorld();
     // scene.updateMatrixWorld()
-    sceneModel.updateMatrixWorld();
-    // scene.children.forEach((model) => {
-    //     if (model.isLight || model.isGroup || model.isMesh) {
-    //         model.updateMatrixWorld()
-    //     }
-    // })
+    const delta = clock.getDelta();
+    // sceneModel.updateMatrixWorld();
 
-    // animationMesh()
+
+    animationMesh()
 
     // mixer.update( delta );
     for (const mixer of mixers) {
