@@ -57,6 +57,11 @@ const router = createRouter({
             path: '/lasvism',
             name: 'lasvism',
             component: () => import('@/views/three/lasvism/index.vue')
+        },
+        {
+            path: '/MCVE',
+            name: 'MCVE',
+            component: () => import('@/views/three/MCVE/index.vue')
         }
     ]
 });

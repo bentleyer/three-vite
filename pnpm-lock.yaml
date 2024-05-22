@@ -11,14 +11,14 @@ dependencies:
     specifier: ^2.1.7
     version: 2.1.7(typescript@5.3.2)(vue@3.3.11)
   three:
-    specifier: ^0.160.1
-    version: 0.160.1
+    specifier: ^0.164.1
+    version: 0.164.1
   three-mesh-bvh:
     specifier: ^0.7.3
-    version: 0.7.3(three@0.160.1)
+    version: 0.7.3(three@0.164.1)
   three-pathfinding:
     specifier: ^1.2.0
-    version: 1.2.0(three@0.160.1)
+    version: 1.2.0(three@0.164.1)
   vue:
     specifier: ^3.3.11
     version: 3.3.11(typescript@5.3.2)
@@ -40,8 +40,8 @@ devDependencies:
     specifier: ^18.19.3
     version: 18.19.3
   '@types/three':
-    specifier: ^0.160.0
-    version: 0.160.0
+    specifier: ^0.164.1
+    version: 0.164.1
   '@vitejs/plugin-vue':
     specifier: ^4.5.2
     version: 4.5.2(vite@5.0.10)(vue@3.3.11)
@@ -808,6 +808,10 @@ packages:
     resolution: {integrity: sha512-d6McJeGsuoRlwWZmVIeE8CUA27lu6jLjvv1JzqmpsytOYYbVi1tHZEnwCNVOXnj4pyLvneZlFlpXUK+X9wBWyw==}
     dev: true
 
+  /@tweenjs/tween.js@23.1.2:
+    resolution: {integrity: sha512-kMCNaZCJugWI86xiEHaY338CU5JpD0B97p1j1IKNn/Zto8PgACjQx0UxbHjmOcLl/dDOBnItwD07KmCs75pxtQ==}
+    dev: true
+
   /@types/dat.gui@0.7.12:
     resolution: {integrity: sha512-el5dYeQZu2r6YW6Ft4rGtjr/dLe/uzXESMoie5UM6/weVShB1V8IRpXtTKrczd4qe7044fTKZS2l8d6EBFOkoA==}
     dev: true
@@ -838,12 +842,13 @@ packages:
     resolution: {integrity: sha512-pXNfAD3KHOdif9EQXZ9deK82HVNaXP5ZIF5RP2QG6OQFNTaY2YIetfrE9t528vEreGQvEPRDDc8muaoYeK0SxQ==}
     dev: true
 
-  /@types/three@0.160.0:
-    resolution: {integrity: sha512-jWlbUBovicUKaOYxzgkLlhkiEQJkhCVvg4W2IYD2trqD2om3VK4DGLpHH5zQHNr7RweZK/5re/4IVhbhvxbV9w==}
+  /@types/three@0.164.1:
+    resolution: {integrity: sha512-dR/trWDhyaNqJV38rl1TonlCA9DpnX7OPYDWD81bmBGn/+uEc3+zNalFxQcV4FlPTeDBhCY3SFWKvK6EJwL88g==}
     dependencies:
+      '@tweenjs/tween.js': 23.1.2
       '@types/stats.js': 0.17.3
       '@types/webxr': 0.5.10
-      fflate: 0.6.10
+      fflate: 0.8.2
       meshoptimizer: 0.18.1
     dev: true
 
@@ -1700,8 +1705,8 @@ packages:
       reusify: 1.0.4
     dev: true
 
-  /fflate@0.6.10:
-    resolution: {integrity: sha512-IQrh3lEPM93wVCEczc9SaAOvkmcoQn/G8Bo1e8ZPlY3X3bnAxWaBdvTdvM1hP62iZp0BXWDy4vTAy4fF0+Dlpg==}
+  /fflate@0.8.2:
+    resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
     dev: true
 
   /file-entry-cache@6.0.1:
@@ -2407,24 +2412,24 @@ packages:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
     dev: true
 
-  /three-mesh-bvh@0.7.3(three@0.160.1):
+  /three-mesh-bvh@0.7.3(three@0.164.1):
     resolution: {integrity: sha512-3W6KjzmupjfE89GuHPT31kxKWZ4YGZPEZJNysJpiOZfQRsBQQgmK7v/VJPpjG6syhAvTnY+5Fr77EvIkTLpGSw==}
     peerDependencies:
       three: '>= 0.151.0'
     dependencies:
-      three: 0.160.1
+      three: 0.164.1
     dev: false
 
-  /three-pathfinding@1.2.0(three@0.160.1):
+  /three-pathfinding@1.2.0(three@0.164.1):
     resolution: {integrity: sha512-TlIfy+mLOdP7OhQG4Mn1dNONYbhu2Xe+AD7jL8SbdKdAHxH/TF68svpk2c8UrSfR/3YWQ87Tq/lp5HQO/QuaMw==}
     peerDependencies:
       three: 0.x.x
     dependencies:
-      three: 0.160.1
+      three: 0.164.1
     dev: false
 
-  /three@0.160.1:
-    resolution: {integrity: sha512-Bgl2wPJypDOZ1stAxwfWAcJ0WQf7QzlptsxkjYiURPz+n5k4RBDLsq+6f9Y75TYxn6aHLcWz+JNmwTOXWrQTBQ==}
+  /three@0.164.1:
+    resolution: {integrity: sha512-iC/hUBbl1vzFny7f5GtqzVXYjMJKaTPxiCxXfrvVdBi1Sf+jhd1CAkitiFwC7mIBFCo3MrDLJG97yisoaWig0w==}
     dev: false
 
   /to-fast-properties@2.0.0:
