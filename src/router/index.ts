@@ -62,6 +62,11 @@ const router = createRouter({
             path: '/MCVE',
             name: 'MCVE',
             component: () => import('@/views/three/MCVE/index.vue')
+        },
+        {
+            path: '/postprocessing',
+            name: 'postprocessing',
+            component: () => import('@/views/three/postprocessing/index.vue')
         }
     ]
 });

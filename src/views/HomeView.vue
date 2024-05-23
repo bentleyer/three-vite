@@ -14,6 +14,7 @@
         <RouterLink to="/pathFinding">pathFinding</RouterLink>
         <RouterLink to="/lasvism">lasvism</RouterLink>
         <RouterLink to="/MCVE">MCVE</RouterLink>
+        <RouterLink to="/postprocessing">postprocessing</RouterLink>
 
     <!-- <TheWelcome /> -->
     </main>
