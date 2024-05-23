@@ -15,9 +15,7 @@ const {
     camera,
     renderer,
     controls,
-    ambientLight,
-    directionalLights,
-    directionalLight
+    light
 } = useInit();
 
 window.onresize = function () {

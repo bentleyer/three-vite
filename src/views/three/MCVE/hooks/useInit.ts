@@ -19,9 +19,7 @@ export function useInit() {
         renderer
     });
     const {
-        ambientLight,
-        directionalLights,
-        directionalLight
+        light
     } = useLight({
         scene
     });
@@ -36,9 +34,7 @@ export function useInit() {
         camera,
         renderer,
         controls,
-        ambientLight,
-        directionalLights,
-        directionalLight,
+        light,
         stats
     }
 }
