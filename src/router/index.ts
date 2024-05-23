@@ -67,6 +67,11 @@ const router = createRouter({
             path: '/postprocessing',
             name: 'postprocessing',
             component: () => import('@/views/three/postprocessing/index.vue')
+        },
+        {
+            path: '/pathtrace',
+            name: 'pathtrace',
+            component: () => import('@/views/three/pathtrace/index.vue')
         }
     ]
 });
