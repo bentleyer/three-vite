@@ -1,113 +1,137 @@
-
-
-import * as THREE from 'three';
-
-import Stats from 'three/addons/libs/stats.module.js';
-
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import {
+    ACESFilmicToneMapping,
+    Scene,
+    EquirectangularReflectionMapping,
+    WebGLRenderer,
+    PerspectiveCamera,
+} from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import { GenerateMeshBVHWorker } from './workers/GenerateMeshBVHWorker';
+import { getScaledSettings } from './utils/getScaledSettings.js';
+import { LoaderElement } from './utils/LoaderElement.js';
+import { WebGLPathTracer } from 'three-gpu-pathtracer/src/index.js';
+// import { WebGLPathTracer } from 'three-gpu-pathtracer/src/';
+import hdrMap from '@/assets/images/hdr/memorial.hdr?url';
+import myModel from '@/assets/models/gltf/tree.glb?url';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import myModel from '@/assets/models/gltf/LittlestTokyo.glb?url'
-import { dracePath } from '@/utils';
-// 构建目标路径
-// const targetPath = srcPath + '/assets/libs/draco/gltf/';
 
-let mixer;
-const mixers: THREE.AnimationMixer[] = [];
 
-const clock = new THREE.Clock();
-// const container = document.getElementById('container');
+const ENV_URL = 'https://raw.githubusercontent.com/gkjohnson/3d-demo-data/master/hdri/chinese_garden_1k.hdr';
+const MODEL_URL = 'https://raw.githubusercontent.com/gkjohnson/3d-demo-data/main/models/terrarium-robots/scene.gltf';
+const CREDITS = 'Model by "nyancube" on Sketchfab';
+const DESCRIPTION = 'Simple path tracing example scene setup with background blur.';
 
-const stats = new Stats();
-document.body.appendChild(stats.dom);
-
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-const pmremGenerator = new THREE.PMREMGenerator(renderer);
-
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xbfe3dd);
-scene.environment = pmremGenerator.fromScene(new RoomEnvironment(renderer), 0.04).texture;
-
-const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
-camera.position.set(50, 20, 80);
-
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.target.set(0, 0.5, 0);
-controls.update();
-// controls.enablePan = false;
-// controls.enableDamping = true;
+let pathTracer, renderer, controls;
+let camera, scene;
+let loader;
 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('/src/assets/libs/draco/gltf/');
+const count = 100;
 
-const loader = new GLTFLoader();
-loader.setDRACOLoader(dracoLoader);
-loader.load(myModel, function (gltf) {
+const loader2 = new GLTFLoader();
+loader2.setDRACOLoader(dracoLoader);
 
-    const model = gltf.scene;
-    model.position.set(1, 1, 0);
-    model.scale.set(0.01, 0.01, 0.01);
-    for (let i = 0; i < 10; i++) {
 
-        const model2 = model.clone();
-        model2.position.set(Math.random() * 50, Math.random() * 50, 0);
+init();
 
-        scene.add(model2);
-        const mixer = new THREE.AnimationMixer(model2);
-        mixer.clipAction(gltf.animations[0]).play();
-        mixers.push(mixer);
-    }
+async function init() {
 
-    scene.add(model);
-    console.log('gltf', gltf);
+    const { tiles, renderScale } = getScaledSettings();
 
-    mixer = new THREE.AnimationMixer(model);
-    mixer.clipAction(gltf.animations[0]).play();
-    mixers.push(mixer);
+    // loader = new LoaderElement();
+    // loader.attach(document.body);
 
+    // renderer
+    renderer = new WebGLRenderer({ antialias: true });
+    renderer.toneMapping = ACESFilmicToneMapping;
+    document.body.appendChild(renderer.domElement);
+
+    // path tracer
+    pathTracer = new WebGLPathTracer(renderer);
+    pathTracer.filterGlossyFactor = 0.5;
+    pathTracer.renderScale = renderScale;
+    pathTracer.tiles.set(tiles, tiles);
+    // const worker = new GenerateMeshBVHWorker()
+    // worker.maxWorkerCount = 4
+    // pathTracer.setBVHWorker(worker);
+
+    // camera
+    camera = new PerspectiveCamera(75, 1, 0.025, 500);
+    camera.position.set(8, 9, 24);
+
+    // scene
+    scene = new Scene();
+    // scene.backgroundBlurriness = 0.05;
+
+    // controls
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.y = 10;
+    controls.addEventListener('change', () => pathTracer.updateCamera());
+    controls.update();
+
+    // load the environment map and model
+    const [ gltf, envTexture ] = await Promise.all([
+        loader2.loadAsync(myModel),
+        new RGBELoader().loadAsync(hdrMap),
+    ]);
+    // const [ gltf ] = await Promise.all([
+    //     loader2.loadAsync(myModel),
+    // ]);
+    /* new RGBELoader().load(hdrMap, function (texture, textureData) {
+
+        console.log(textureData);
+        console.log(texture);
+
+        texture.mapping = EquirectangularReflectionMapping;
+        // texture.minFilter = THREE.LinearFilter;
+        // texture.magFilter = THREE.LinearFilter;
+        // texture.needsUpdate = true;
+        scene.environment = texture;
+        scene.background = texture;
+
+        // scene.add(mesh);
+
+    }); */
+
+    envTexture.mapping = EquirectangularReflectionMapping;
+    scene.background = envTexture;
+    scene.environment = envTexture;
+    scene.add(gltf.scene);
+
+    // initialize the path tracer
+    // await pathTracer.setSceneAsync(scene, camera,);
+    pathTracer.setScene(scene, camera,);
+
+    window.addEventListener('resize', onResize);
+
+    onResize();
     animate();
 
-}, undefined, function (e) {
+}
 
-    console.error(e);
+function onResize() {
 
-});
-
-
-window.onresize = function () {
+    // update resolution
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
 
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    // update camera
+    pathTracer.updateCamera();
 
-};
-
+}
 
 function animate() {
 
     requestAnimationFrame(animate);
 
-    const delta = clock.getDelta();
+    pathTracer.renderSample();
 
-    // mixer.update( delta );
-    for (const mixer of mixers) {
-        mixer.update(delta);
-    }
-
-
-    controls.update();
-
-    stats.update();
-
-    renderer.render(scene, camera);
+    // loader.setSamples(pathTracer.samples);
 
 }
-
-

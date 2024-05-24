@@ -11,15 +11,18 @@ import { useLight } from './useLight';
 import { useRender } from './useRender';
 import { useState } from './useState';
 import { useHelper } from './useHelper';
+import { BlurredEnvMapGenerator } from 'three-gpu-pathtracer';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import hdrMap from '@/assets/images/hdr/memorial.hdr?url'
 
-
-export function useInit() {
+export async function useInit() {
     const scene = new THREE.Scene();
     // 初始顺序 px/right nx/left py/up ny/down pz/front nz/back
     // scene.background = new THREE.Color(0xbfe3dd);
     const envMap = new THREE.CubeTextureLoader().load([ right, left, back, front, up, down ]);
-    scene.background = envMap
-    scene.environment = envMap
+    // scene.background = envMap
+    // scene.environment = envMap
+
     const { camera } = useCamera();
     const { renderer } = useRender();
 
@@ -34,16 +37,27 @@ export function useInit() {
     });
     const {
         stats
-    } = useState()
+    } = useState();
     useHelper({
         scene
-    })
+    });
+    // const generator = new BlurredEnvMapGenerator( renderer );
+    // const blurredEnvMap = generator.generate( envMap, 0.35 );
+    const [ envTexture ] = await Promise.all([
+        new RGBELoader().loadAsync(hdrMap),
+        // new THREE.CubeTextureLoader().loadAsync([ right, left, back, front, up, down ]);
+    ]);
+    envTexture.mapping = THREE.EquirectangularReflectionMapping;
+    // texture.minFilter = THREE.LinearFilter;
+    // texture.magFilter = THREE.LinearFilter;
+    // texture.needsUpdate = true;
+    scene.environment = envTexture
+    scene.background = envTexture;
     return {
         scene,
         camera,
         renderer,
         controls,
-        light,
         stats
-    }
+    };
 }

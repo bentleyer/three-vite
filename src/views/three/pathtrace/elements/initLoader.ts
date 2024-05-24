@@ -3,12 +3,12 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import * as THREE from 'three';
 // import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
-// import myModel from '@/assets/models/gltf/Audi.glb?url';
+import myModel from '@/assets/models/gltf/Audi.glb?url';
 // import myModel from '@/assets/models/gltf/tree_min.glb?url';
-import myModel from '@/assets/models/gltf/tree.glb?url';
+// import myModel from '@/assets/models/gltf/tree.glb?url';
 
 
-export function initLoader({
+export async function initLoader({
     scene,
 }) {
     const sceneModel = new THREE.Group();
@@ -132,25 +132,19 @@ export function initLoader({
 
     }
 
-    loader.load(myModel, function (gltf) {
-        const model = gltf.scene;
-        model.castShadow = true;
-        model.traverse((obj) => {
-            if (obj.isObject3D) {
-                obj.castShadow = true;
-            }
-        });
-        model.rotation.x = Math.PI / 2;
-        model.scale.set(10, 10, 10);
-        // model.position.add(new THREE.Vector3(0, 0, 2))
-        // makeMerge(model);
-
-        scene.add(model)
-        scene.updateMatrixWorld();
-
-    }, undefined, function (e) {
-
-        console.error(e);
-
+    const [ gltf ] = await Promise.all([
+        loader.loadAsync(myModel),
+    ]);
+    const model = gltf.scene;
+    model.castShadow = true;
+    model.traverse((obj) => {
+        if (obj.isObject3D) {
+            obj.castShadow = true;
+        }
     });
+    model.rotation.x = Math.PI / 2;
+    model.scale.set(10, 10, 10);
+
+
+    scene.add(model)
 }

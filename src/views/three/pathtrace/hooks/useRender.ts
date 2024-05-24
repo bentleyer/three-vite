@@ -11,6 +11,7 @@ export function useRender() {
         logarithmicDepthBuffer: true
     });
     renderer.autoClear = true;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
     // renderer.shadowMap.enabled = false;
     renderer.setClearColor(new THREE.Color(0xa7a7a7));

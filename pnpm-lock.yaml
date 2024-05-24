@@ -13,6 +13,9 @@ dependencies:
   three:
     specifier: ^0.164.1
     version: 0.164.1
+  three-gpu-pathtracer:
+    specifier: ^0.0.22
+    version: link:node_modules/three-gpu-pathtracer
   three-mesh-bvh:
     specifier: ^0.7.3
     version: 0.7.3(three@0.164.1)

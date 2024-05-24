@@ -29,7 +29,6 @@ export function initGround({
     plane.castShadow = false;
     plane.receiveShadow = true;
     scene.add( plane );
-    
 
     // const buffer1 = createBufferGeometry()
     // buffer1.computeVertexNormals()
