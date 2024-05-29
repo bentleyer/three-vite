@@ -72,6 +72,11 @@ const router = createRouter({
             path: '/pathtrace',
             name: 'pathtrace',
             component: () => import('@/views/three/pathtrace/index.vue')
+        },
+        {
+            path: '/modelDisplay',
+            name: 'modelDisplay',
+            component: () => import('@/views/three/modelDisplay/index.vue')
         }
     ]
 });

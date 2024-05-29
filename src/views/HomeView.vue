@@ -16,6 +16,7 @@
         <RouterLink to="/MCVE">MCVE</RouterLink>
         <RouterLink to="/postprocessing">postprocessing</RouterLink>
         <RouterLink to="/pathtrace">pathtrace</RouterLink>
+        <RouterLink to="/modelDisplay">modelDisplay</RouterLink>
 
 
     <!-- <TheWelcome /> -->
