@@ -10,6 +10,7 @@ import { makeInstance } from './hooks/useInstance';
 import { initLoader } from './elements/initLoader';
 import { initGround } from './elements/initGround';
 import { WebGLPathTracer } from 'three-gpu-pathtracer';
+import { ParallelMeshBVHWorker } from './workers/ParallelMeshBVHWorker.js';
 
 export function getScaledSettings() {
 
@@ -40,14 +41,32 @@ const {
     controls,
 } = await useInit();
 
+let pathTracer;
+pathTracer = new WebGLPathTracer(renderer);
+pathTracer.bounces = 5
+// pathTracer.filterGlossyFactor = 0.5;
+// pathTracer.renderScale = renderScale;
+// pathTracer.tiles.set(tiles, tiles);
+pathTracer.setBVHWorker( new ParallelMeshBVHWorker() );
 
-await initLoader({
+pathTracer.setSceneAsync(scene, camera);
+
+
+const { animationMesh } = await initLoader({
     scene
 });
+
 // initGround({
 //     scene
 // });
+let progress = 0
 
+pathTracer.setSceneAsync(scene, camera, {
+    onProgress: (v) => {
+        progress = v
+        console.log('onProgress', v)
+    }
+} );
 
 
 window.onresize = function () {
@@ -87,22 +106,39 @@ const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 ]; */
 const { tiles, renderScale } = getScaledSettings();
 
-let pathTracer;
-pathTracer = new WebGLPathTracer(renderer);
-pathTracer.filterGlossyFactor = 0.5;
-pathTracer.renderScale = renderScale;
-pathTracer.tiles.set(tiles, tiles);
-pathTracer.setScene(scene, camera);
 
 controls.addEventListener('change', () => pathTracer.updateCamera());
 controls.update();
 
 function animate() {
-    // controls.update();
-    // stats.update();
+    controls.update();
+    stats.update();
+    animationMesh()
+    let flag = false
     // renderer.render(scene, camera);
-    pathTracer.renderSample();
+    // console.log('start', new Date().getTime())
+    // console.log('start', performance.now())
+    if  (progress === 1) {
+        if (flag) {
+            pathTracer.renderSample();
+            flag = !flag
+        } else {
+            renderer.render(scene, camera);
+            flag = !flag
+        }
+    } else {
+        renderer.render(scene, camera);
+    }
+    // console.log('end', performance.now())
+
     requestAnimationFrame(animate);
 }
 
 animate();
+
+
+export function handleClick() {
+    initGround({
+        scene
+    });
+}

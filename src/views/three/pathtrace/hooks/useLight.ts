@@ -29,6 +29,8 @@ export function useLight({
     directionalLight.shadow.mapSize.width = SHADOW_MAP_WIDTH;
     directionalLight.shadow.mapSize.height = SHADOW_MAP_HEIGHT;
     scene.add(directionalLight);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
     // let samlldirectionalLightt = new THREE.directionalLightt(0xffffff);
     // this.smallScene.add(samlldirectionalLightt);
     return {

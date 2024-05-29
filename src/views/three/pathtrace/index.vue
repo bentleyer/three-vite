@@ -1,8 +1,10 @@
 
 <template>
-    <div id="container"></div>
+    <div id="container">
+        <Button @click="handleClick">click</Button>
+    </div>
 
 </template>
 <script lang="ts" setup>
-import './index';
+import { handleClick } from  './index';
 </script>

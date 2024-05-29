@@ -13,7 +13,9 @@ import { useState } from './useState';
 import { useHelper } from './useHelper';
 import { BlurredEnvMapGenerator } from 'three-gpu-pathtracer';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
-import hdrMap from '@/assets/images/hdr/memorial.hdr?url'
+// import hdrMap from '@/assets/images/hdr/memorial.hdr?url'
+
+import hdrMap from '@/assets/images/hdr/venice_sunset_1k.hdr?url'
 
 export async function useInit() {
     const scene = new THREE.Scene();
@@ -48,9 +50,9 @@ export async function useInit() {
         // new THREE.CubeTextureLoader().loadAsync([ right, left, back, front, up, down ]);
     ]);
     envTexture.mapping = THREE.EquirectangularReflectionMapping;
-    // texture.minFilter = THREE.LinearFilter;
-    // texture.magFilter = THREE.LinearFilter;
-    // texture.needsUpdate = true;
+    envTexture.minFilter = THREE.LinearFilter;
+    envTexture.magFilter = THREE.LinearFilter;
+    envTexture.needsUpdate = true;
     scene.environment = envTexture
     scene.background = envTexture;
     return {
