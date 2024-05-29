@@ -3,7 +3,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import * as THREE from 'three';
 // import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
-import myModel from '@/assets/models/gltf/building1test.glb?url';
+import myModel from '@/assets/models/gltf/building2.gltf?url';
 // import myModel from '@/assets/models/gltf/tree_min.glb?url';
 // import myModel from '@/assets/models/gltf/tree.glb?url';
 // import myModel from '@/assets/models/gltf/tree_mini.glb?url';
@@ -14,18 +14,11 @@ import grass_displacement from '@/assets/images/textures/building/lambert1_Heigh
 import grass_AO from '@/assets/images/textures/building/lambert1_Mixed_AO.png';
 import grass_roughness from '@/assets/images/textures/building/lambert1_Roughness.png';
 import grass_metalness from '@/assets/images/textures/building/lambert1_Metallic.png';
-import hdr_n_z from '@/assets/images/textures/hdr/hdr_n_z.jpg';
-import hdr_n_y from '@/assets/images/textures/hdr/hdr_n_y.jpg';
-import hdr_n_x from '@/assets/images/textures/hdr/hdr_n_x.jpg';
-import hdr_p_z from '@/assets/images/textures/hdr/hdr_p_z.jpg';
-import hdr_p_y from '@/assets/images/textures/hdr/hdr_p_y.jpg';
-import hdr_p_x from '@/assets/images/textures/hdr/hdr_p_x.jpg';
 
 
 export async function initLoader({
     scene,
 }) {
-    const hdrJpgEquirectangularMap = new THREE.CubeTextureLoader().load([ hdr_p_x, hdr_n_x, hdr_p_y, hdr_n_y, hdr_p_z, hdr_n_z ]);
     const textureLoader = new THREE.TextureLoader(); //纹理 被加载管理器统一管理
     const normalMap = textureLoader.load(grass_normal);
     const AOMap = textureLoader.load(grass_AO);
@@ -33,12 +26,7 @@ export async function initLoader({
     const colorMap = textureLoader.load(grass);
     const displacementMap = textureLoader.load(grass_displacement);
     const metalnessMap = textureLoader.load(grass_metalness);
-    normalMap.flipY = false
-    AOMap.flipY = false
-    roughnessMap.flipY = false
-    displacementMap.flipY = false
-    colorMap.flipY = false
-    metalnessMap.flipY = false
+
     const sceneModel = new THREE.Group();
     const modelArr = [];
     const dracoLoader = new DRACOLoader();
@@ -46,6 +34,7 @@ export async function initLoader({
     const count = 10;
 
     const loader = new GLTFLoader();
+
     loader.setDRACOLoader(dracoLoader);
 
     function makeNaive(model) {
@@ -63,7 +52,6 @@ export async function initLoader({
         loader.loadAsync(myModel),
     ]);
     const model = gltf.scene;
-    console.log('gltf', model, colorMap);
     // const mesh = model.children[0]
     // const uvAttribute = mesh.geometry.getAttribute('uv')
     // const uvs = [];
@@ -90,16 +78,16 @@ export async function initLoader({
     // })
 
     // console.log('gltf', model, uvs, matrix, globalPosition);
-    // model.castShadow = true;
+    console.log('gltf', model);
+    model.castShadow = true;
     model.traverse((obj) => {
         if (obj.isMesh) {
-            obj.material.aoMap = AOMap;
-            obj.material.displacementMap = displacementMap;
+            // obj.material.aoMap = AOMap;
+            // obj.material.displacementMap = displacementMap;
             obj.material.map = colorMap;
-            obj.material.normalMap = normalMap;
-            obj.material.roughnessMap = roughnessMap;
-            obj.material.metalnessMap = metalnessMap;
-            // obj.material.envMap = hdrJpgEquirectangularMap
+            // obj.material.normalMap = normalMap;
+            // obj.material.roughnessMap = roughnessMap;
+            // obj.material.metalnessMap = metalnessMap;
             obj.castShadow = true;
         }
     });

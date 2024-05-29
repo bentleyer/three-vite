@@ -5,6 +5,6 @@ export function useHelper({
 }: {
     scene: THREE.Scene
 }) {
-    const axesHelper = new THREE.AxesHelper( 5 );
+    const axesHelper = new THREE.AxesHelper( 500000 );
     scene.add( axesHelper );
 }

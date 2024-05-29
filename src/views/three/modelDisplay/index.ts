@@ -9,6 +9,7 @@ import { useInit } from './hooks/useInit';
 import { makeInstance } from './hooks/useInstance';
 import { initLoader } from './elements/initLoader';
 import { initGround } from './elements/initGround';
+// import { initLoader } from './elements/initLoader2';
 
 // 构建目标路径
 
