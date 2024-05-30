@@ -34,11 +34,11 @@ export function initGround({
 
     const geometry = new THREE.PlaneGeometry(100, 100);
     const material = new THREE.MeshStandardMaterial({ color: 0xffdd99, side: THREE.FrontSide });
-    material.aoMap = AOMap;
-    material.displacementMap = displacementMap;
-    material.map = colorMap;
-    material.normalMap = normalMap;
-    material.roughnessMap = roughnessMap;
+    // material.aoMap = AOMap;
+    // material.displacementMap = displacementMap;
+    // material.map = colorMap;
+    // material.normalMap = normalMap;
+    // material.roughnessMap = roughnessMap;
     // material.metalnessMap = metalnessMap
     const plane = new THREE.Mesh(geometry, material);
     plane.scale.set(10, 10, 10);

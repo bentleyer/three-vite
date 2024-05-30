@@ -7,9 +7,9 @@ import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { useInit } from './hooks/useInit';
 import { makeInstance } from './hooks/useInstance';
-import { initLoader } from './elements/initLoader';
+// import { initLoader } from './elements/initLoader';
 import { initGround } from './elements/initGround';
-// import { initLoader } from './elements/initLoader2';
+import { initLoader } from './elements/initLoader2';
 
 // 构建目标路径
 
