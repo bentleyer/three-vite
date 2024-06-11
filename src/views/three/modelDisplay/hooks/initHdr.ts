@@ -9,14 +9,17 @@ import hdr_p_x from '@/assets/images/textures/hdr/hdr_p_x.jpg';
 
 export function useHdr({
     scene,
-    renderer
+    renderer,
+    gui
 }) {
     const hdrJpgEquirectangularMap = new THREE.CubeTextureLoader().load([ hdr_p_x, hdr_n_x, hdr_p_y, hdr_n_y, hdr_p_z, hdr_n_z ]);
     scene.environment = hdrJpgEquirectangularMap
     scene.background = hdrJpgEquirectangularMap
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMappingExposure = 0.6;
     // this.renderer.outputEncoding = THREE.sRGBEncoding;
+    gui.add( renderer, 'toneMappingExposure', 0.0, 1.0, 0.01 )
 
 
 }

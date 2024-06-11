@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls';
 import { ref } from 'vue';
 const SHADOW_MAP_WIDTH = 8192;
 const SHADOW_MAP_HEIGHT = 8192;
@@ -7,8 +6,10 @@ const SHADOW_MAP_HEIGHT = 8192;
 
 export function useLight({
     scene,
+    gui
 }: {
-    scene: THREE.Scene
+    scene: THREE.Scene,
+    gui: any
 }) {
     const color = 0xFFFFFF;
     const intensity = 6;
@@ -29,10 +30,13 @@ export function useLight({
     directionalLight.shadow.mapSize.width = SHADOW_MAP_WIDTH;
     directionalLight.shadow.mapSize.height = SHADOW_MAP_HEIGHT;
     scene.add(directionalLight);
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
     // let samlldirectionalLightt = new THREE.directionalLightt(0xffffff);
     // this.smallScene.add(samlldirectionalLightt);
+    gui.add( directionalLight, 'intensity', 0.0, 5.0, 0.1 )
+    gui.add( ambientLight, 'intensity', 0.0, 5.0, 0.1 )
+
     return {
         light: directionalLight
     };

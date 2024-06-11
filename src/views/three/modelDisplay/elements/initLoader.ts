@@ -25,7 +25,7 @@ import hdr_p_x from '@/assets/images/textures/hdr/hdr_p_x.jpg';
 export async function initLoader({
     scene,
 }) {
-    const hdrJpgEquirectangularMap = new THREE.CubeTextureLoader().load([ hdr_p_x, hdr_n_x, hdr_p_y, hdr_n_y, hdr_p_z, hdr_n_z ]);
+    // const hdrJpgEquirectangularMap = new THREE.CubeTextureLoader().load([ hdr_p_x, hdr_n_x, hdr_p_y, hdr_n_y, hdr_p_z, hdr_n_z ]);
     const textureLoader = new THREE.TextureLoader(); //纹理 被加载管理器统一管理
     const normalMap = textureLoader.load(grass_normal);
     const AOMap = textureLoader.load(grass_AO);

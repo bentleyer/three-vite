@@ -6,9 +6,11 @@ import { useRender } from './useRender';
 import { useState } from './useState';
 import { useHelper } from './useHelper';
 import { useHdr } from './initHdr';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
 
 export function useInit() {
+    const gui = new GUI()
     const scene = new THREE.Scene();
     // 初始顺序 px/right nx/left py/up ny/down pz/front nz/back
     scene.background = new THREE.Color(0xbfe3dd);
@@ -20,9 +22,10 @@ export function useInit() {
         renderer
     });
     const {
-        light
+        light,
     } = useLight({
-        scene
+        scene,
+        gui
     });
     const {
         stats
@@ -32,7 +35,8 @@ export function useInit() {
     })
     useHdr({
         scene,
-        renderer
+        renderer,
+        gui
     })
     return {
         scene,
@@ -40,6 +44,7 @@ export function useInit() {
         renderer,
         controls,
         light,
-        stats
+        stats,
+        gui
     }
 }

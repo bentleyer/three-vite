@@ -9,7 +9,9 @@ import { useInit } from './hooks/useInit';
 import { makeInstance } from './hooks/useInstance';
 // import { initLoader } from './elements/initLoader';
 import { initGround } from './elements/initGround';
-import { initLoader } from './elements/initLoader2';
+// import { initLoader } from './elements/initLoader2';
+// import { initLoader } from './elements/initLoader3';
+import { initLoader } from './elements/initLoader4';
 
 // 构建目标路径
 
@@ -19,7 +21,8 @@ const {
     camera,
     renderer,
     controls,
-    light
+    light,
+    gui
 } = useInit();
 
 window.onresize = function () {
@@ -32,7 +35,8 @@ window.onresize = function () {
 };
 
 initLoader({
-    scene
+    scene,
+    gui
 });
 
 initGround({

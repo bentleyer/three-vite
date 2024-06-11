@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import grass from '@/assets/images/textures/grass.jpg';
+import grass from '@/assets/images/textures/grass2.jpg';
 import grass_normal from '@/assets/images/textures/grass_normal.jpg';
 import grass_displacement from '@/assets/images/textures/grass_displacement.jpg';
 import grass_AO from '@/assets/images/textures/grass_AO.jpg';
@@ -34,11 +34,12 @@ export function initGround({
 
     const geometry = new THREE.PlaneGeometry(100, 100);
     const material = new THREE.MeshStandardMaterial({ color: 0xffdd99, side: THREE.FrontSide });
-    // material.aoMap = AOMap;
-    // material.displacementMap = displacementMap;
-    // material.map = colorMap;
-    // material.normalMap = normalMap;
-    // material.roughnessMap = roughnessMap;
+    material.aoMap = AOMap;
+    material.displacementMap = displacementMap;
+    material.map = colorMap;
+    // material.color = new THREE.Color('white')
+    material.normalMap = normalMap;
+    material.roughnessMap = roughnessMap;
     // material.metalnessMap = metalnessMap
     const plane = new THREE.Mesh(geometry, material);
     plane.scale.set(10, 10, 10);
