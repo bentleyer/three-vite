@@ -4,11 +4,13 @@ import grass_normal from '@/assets/images/textures/grass_normal.jpg';
 import grass_displacement from '@/assets/images/textures/grass_displacement.jpg';
 import grass_AO from '@/assets/images/textures/grass_AO.jpg';
 import grass_roughness from '@/assets/images/textures/grass_roughness.jpg';
-
+import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 export function initGround({
-    scene
+    scene,
+    gui
 }: {
-    scene: THREE.Scene
+    scene: THREE.Scene,
+    gui: GUI
 }) {
     const textureLoader = new THREE.TextureLoader(); //纹理 被加载管理器统一管理
     const normalMap = textureLoader.load(grass_normal);
@@ -16,6 +18,22 @@ export function initGround({
     const roughnessMap = textureLoader.load(grass_roughness);
     const colorMap = textureLoader.load(grass);
     const displacementMap = textureLoader.load(grass_displacement);
+    colorMap.wrapS = THREE.RepeatWrapping;
+    colorMap.wrapT = THREE.RepeatWrapping;
+    colorMap.repeat.set(100, 100 );
+    normalMap.wrapS = THREE.RepeatWrapping;
+    normalMap.wrapT = THREE.RepeatWrapping;
+    normalMap.repeat.set(100, 100 );
+    roughnessMap.wrapS = THREE.RepeatWrapping;
+    roughnessMap.wrapT = THREE.RepeatWrapping;
+    roughnessMap.repeat.set(100, 100 );
+    AOMap.wrapS = THREE.RepeatWrapping;
+    AOMap.wrapT = THREE.RepeatWrapping;
+    AOMap.repeat.set(100, 100 );
+    displacementMap.wrapS = THREE.RepeatWrapping;
+    displacementMap.wrapT = THREE.RepeatWrapping;
+    displacementMap.repeat.set(100, 100 );
+
     // const geometry = new THREE.PlaneGeometry(100, 100);
     // const geometry = new THREE.BoxGeometry(100, 100, 1);
 
@@ -31,22 +49,29 @@ export function initGround({
     // ground2.scale.set(10, 10, 10);
     // ground2.castShadow = false;
     // ground2.receiveShadow = true;
-
+    // colorMap.rotation = Math.PI / 4
     const geometry = new THREE.PlaneGeometry(100, 100);
-    const material = new THREE.MeshStandardMaterial({ color: 0xffdd99, side: THREE.FrontSide });
-    material.aoMap = AOMap;
-    material.displacementMap = displacementMap;
+    const material = new THREE.MeshStandardMaterial({ side: THREE.FrontSide });
+
     material.map = colorMap;
     // material.color = new THREE.Color('white')
-    material.normalMap = normalMap;
+    // material.normalMap = normalMap;
     material.roughnessMap = roughnessMap;
+
+    material.aoMap = AOMap;
+    material.displacementMap = displacementMap;
+    material.displacementBias = -0.5
+    material.metalness = 1;
+
     // material.metalnessMap = metalnessMap
+
     const plane = new THREE.Mesh(geometry, material);
+    console.log('plane', plane)
     plane.scale.set(10, 10, 10);
     plane.castShadow = false;
     plane.receiveShadow = true;
     plane.position.set(
-        0, 0, -5
+        0, 0, -5.5
     )
     scene.add(plane);
 

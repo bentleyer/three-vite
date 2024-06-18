@@ -8,7 +8,7 @@ export function useRender() {
         antialias: true,
         // alpha: true,
         canvas: canvasBig,
-        logarithmicDepthBuffer: true
+        // logarithmicDepthBuffer: true
     });
     renderer.autoClear = true;
 

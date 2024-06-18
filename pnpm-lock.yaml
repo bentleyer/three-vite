@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@tweenjs/tween.js':
+    specifier: ^23.1.2
+    version: 23.1.2
   dat.gui:
     specifier: ^0.7.9
     version: 0.7.9
@@ -813,7 +816,6 @@ packages:
 
   /@tweenjs/tween.js@23.1.2:
     resolution: {integrity: sha512-kMCNaZCJugWI86xiEHaY338CU5JpD0B97p1j1IKNn/Zto8PgACjQx0UxbHjmOcLl/dDOBnItwD07KmCs75pxtQ==}
-    dev: true
 
   /@types/dat.gui@0.7.12:
     resolution: {integrity: sha512-el5dYeQZu2r6YW6Ft4rGtjr/dLe/uzXESMoie5UM6/weVShB1V8IRpXtTKrczd4qe7044fTKZS2l8d6EBFOkoA==}
