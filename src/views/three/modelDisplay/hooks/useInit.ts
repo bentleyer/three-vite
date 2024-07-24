@@ -26,9 +26,9 @@ export function useInit() {
         renderer,
         gui
     });
-    useFog({
-        scene
-    })
+    // useFog({
+    //     scene
+    // })
     const {
         light,
     } = useLight({
@@ -51,7 +51,9 @@ export function useInit() {
     useHelper({
         scene
     })
-    useHdr({
+    const {
+        envMap
+    } = useHdr({
         scene,
         renderer,
         gui
@@ -63,6 +65,7 @@ export function useInit() {
         controls,
         // light,
         stats,
-        gui
+        gui,
+        envMap
     }
 }

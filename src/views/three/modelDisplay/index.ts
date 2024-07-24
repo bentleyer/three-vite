@@ -10,6 +10,7 @@ import { makeInstance } from './hooks/useInstance';
 // import { initLoader } from './elements/initLoader';
 // import { initGround } from './elements/initGround';
 // import { initGround as initGroundBuffer } from './elements/initGroundBuffer';
+import { usePostProcessing } from './hooks/usePostprocessing';
 import { initGround } from './elements/initGround';
 
 // import { initGround } from './elements/initGroundTerrain';
@@ -26,8 +27,11 @@ import { initGround } from './elements/initGround';
 // import { initLoader } from './elements/initLoaderPeopleColor';
 // import { initLoader } from './elements/initLoaderSuv';
 // import { initLoader } from './elements/initLoaderBus';
-import { initLoader } from './elements/initLoaderLexus';
-
+// import { initLoader } from './elements/initLoaderLexus';
+import { initLoader as initLoaderLight } from './elements/initLoaderTrafficlight';
+// import { initLoader } from './elements/initLoaderMinivan';
+// import { initLoader } from './elements/initLoaderMini';
+import { initLoader } from './elements/initLoaderBuilding5';
 
 // 构建目标路径
 
@@ -37,8 +41,9 @@ const {
     camera,
     renderer,
     controls,
-    light,
-    gui
+    // light,
+    gui,
+    envMap
 } = useInit();
 
 window.onresize = function () {
@@ -55,6 +60,11 @@ initLoader({
     gui
 });
 
+// initLoaderLight({
+//     scene,
+//     gui
+// });
+
 initGround({
     scene,
     gui
@@ -65,23 +75,73 @@ initGround({
 //     gui
 // });
 
-console.log('scene', scene, )
+console.log('scene', scene,);
+
+// const {
+//     composer,
+//     bloomComposer,
+//     finalComposer,
+//     bloomLayer
+// } = usePostProcessing({
+//     scene,
+//     gui,
+//     renderer,
+//     camera
+// });
 
 
 function animate() {
     controls.update();
     stats.update();
     renderer.render(scene, camera);
+    // scene.environment = null;
+    // scene.background = new THREE.Color('black')
+
+    // scene.traverse(darkenNonBloomed);
+    // bloomComposer.render();
+    // scene.traverse(restoreMaterial);
+    // scene.environment = envMap;
+    // scene.background = envMap;
+
+    // render the entire scene, then render bloom scene on top
+    // finalComposer.render();
     requestAnimationFrame(animate);
+}
+
+const materials = new Map()
+const darkMaterial = new THREE.MeshBasicMaterial( { color: 'black' } );
+
+
+
+function darkenNonBloomed( obj ) {
+
+    if ( obj.isMesh && bloomLayer.test( obj.layers ) === false ) {
+        materials.set(obj.uuid, obj.material)
+        // materials[ obj.uuid ] = obj.material;
+        obj.material = darkMaterial;
+
+    }
+
+}
+
+function restoreMaterial( obj ) {
+
+    if ( materials.has(obj.uuid) ) {
+
+        obj.material = materials.get(obj.uuid);
+        // delete materials[ obj.uuid ];
+        materials.delete(obj.uuid)
+    }
+
 }
 
 animate();
 
 function handleClick() {
     //   state.camera.rotation.set(0, 0, baseDate.main_vehicle.phi - Math.PI / 2)
-    console.log('handleClick', camera, scene)
+    console.log('handleClick', camera, scene);
 }
 
 export {
     handleClick
-}
+};

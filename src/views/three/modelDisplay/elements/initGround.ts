@@ -66,7 +66,6 @@ export function initGround({
     // material.metalnessMap = metalnessMap
 
     const plane = new THREE.Mesh(geometry, material);
-    console.log('plane', plane)
     plane.scale.set(10, 10, 10);
     plane.castShadow = false;
     plane.receiveShadow = true;

@@ -9,7 +9,7 @@ import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import {
     vertex,
     fragment
-} from '../shader/index'
+} from '../shader/index';
 
 export function usePostProcessing({
     scene,
@@ -22,16 +22,16 @@ export function usePostProcessing({
     renderer: THREE.WebGLRenderer,
     camera: THREE.Camera
 }) {
-    const BLOOM_SCENE = 1;
+    const composer = new EffectComposer(renderer);
+    const BLOOM_SCENE = 2;
 
     const bloomLayer = new THREE.Layers();
     bloomLayer.set(BLOOM_SCENE);
 
     const params = {
-        threshold: 0,
-        strength: 1,
+        threshold: 0.3,
+        strength: 0.3,
         radius: 0.5,
-        exposure: 1
     };
 
     const renderScene = new RenderPass(scene, camera);
@@ -66,9 +66,34 @@ export function usePostProcessing({
     finalComposer.addPass(mixPass);
     finalComposer.addPass(outputPass);
 
+
+    const bloomFolder = gui.addFolder('bloom');
+
+    bloomFolder.add(params, 'threshold', 0.0, 1.0).onChange(function (value) {
+
+        bloomPass.threshold = Number(value);
+
+    });
+
+    bloomFolder.add(params, 'strength', 0.0, 3).onChange(function (value) {
+
+        bloomPass.strength = Number(value);
+
+    });
+
+    bloomFolder.add(params, 'radius', 0.0, 1.0).step(0.01).onChange(function (value) {
+
+        bloomPass.radius = Number(value);
+
+    });
+    // composer.addPass(renderScene);
+    // composer.addPass(bloomPass);
+    // composer.addPass(outputPass);
     return {
         bloomComposer,
-        finalComposer
+        finalComposer,
+        composer,
+        bloomLayer
     };
 
 }

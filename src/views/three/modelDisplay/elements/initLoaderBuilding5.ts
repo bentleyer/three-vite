@@ -3,30 +3,32 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import * as THREE from 'three';
 // import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
-import myModel from '@/assets/models/car/lexus.glb?url';
+import myModel from '@/assets/models/building/building5.glb?url';
 // import myModel from '@/assets/models/gltf/tree_min.glb?url';
 // import myModel from '@/assets/models/gltf/tree.glb?url';
 // import myModel from '@/assets/models/gltf/tree_mini.glb?url';
 // import myModel from '@/assets/models/gltf/bwm330bm_black.glb?url';
-import textureBaseColor from '@/assets/images/textures/car/Texture_lexus_basecolor_1024.png';
-import type GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
+import textureBuildingBaseColor from '@/assets/images/textures/building/Texture_building5_basecolor_6000.jpeg'
+import textureBuildingHeight from '@/assets/images/textures/building/Texture_building5_specular_6000.jpg'
+import textureBuildingMetallic from '@/assets/images/textures/building/Texture_building5_metalic_6000.jpg'
+import textureBuildingRoughness from '@/assets/images/textures/building/Texture_building5_roughness_6000.jpg'
 
 
 export async function initLoader({
     scene,
     gui
-}: {
-    gui: GUI
 }) {
-    const params = {
-        punctualLightsEnabled: true
-    };
     // const hdrJpgEquirectangularMap = new THREE.CubeTextureLoader().load([ hdr_p_x, hdr_n_x, hdr_p_y, hdr_n_y, hdr_p_z, hdr_n_z ]);
     const textureLoader = new THREE.TextureLoader(); //纹理 被加载管理器统一管理
+    const buildingHeight = textureLoader.load(textureBuildingHeight);
+    const buildingMetallic = textureLoader.load(textureBuildingMetallic);
+    const buildingBaseColor= textureLoader.load(textureBuildingBaseColor);
+    const buildingRoughness = textureLoader.load(textureBuildingRoughness);
 
-    const building2BaseColor = textureLoader.load(textureBaseColor);
-
-    building2BaseColor.flipY = false;
+    buildingHeight.flipY = false;
+    buildingMetallic.flipY = false;
+    buildingBaseColor.flipY = false;
+    buildingRoughness.flipY = false;
     const sceneModel = new THREE.Group();
     const modelArr = [];
     const dracoLoader = new DRACOLoader();
@@ -47,48 +49,33 @@ export async function initLoader({
 
     }
 
-    const [ gltf ] = await Promise.all([
+    const [gltf] = await Promise.all([
         loader.loadAsync(myModel),
     ]);
     const model = gltf.scene;
     model.traverse((obj) => {
         if (obj.isMesh) {
-            if (obj.name === 'carlight_license') {
-                obj.material.color = new THREE.Color('white');
-                obj.material.map = building2BaseColor;
-                obj.material.emissive = new THREE.Color('red');
-                obj.material.emissiveMap = building2BaseColor;
+            // obj.material = new THREE.MeshBasicMaterial({
+            //     color: new THREE.Color('#fef')
+            // })
+            obj.material = new THREE.MeshStandardMaterial()
+            obj.material.map = buildingBaseColor
+            obj.material.roughnessMap = buildingRoughness
+            // obj.material.displacementMap = buildingHeight
+            // obj.material.bumpMap = buildingHeight
+            // obj.material.displacementScale = 1
+            obj.material.metalnessMap = buildingMetallic
+            obj.material.metalness = 1
+            gui.add( obj.material, 'metalness', 0.0, 4.0, 0.01 )
+            gui.add( obj.material, 'roughness', 0.0, 4.0, 0.01 )
 
-                console.log('obj.material', obj);
-                gui.addColor(obj.material, 'emissive');
-                gui.add(obj.material, 'emissiveIntensity', 0, 1, 0.1);
-
-                gui.add(params, 'punctualLightsEnabled').onChange(
-                    (val) => {
-                        if (!val) {
-                            obj.material.emissiveIntensity = 0;
-                        } else {
-                            obj.material.emissiveIntensity = 1;
-                            // obj.material.emissive = new THREE.Color('red');
-                        }
-                        console.log('obj.material', obj.material);
-                    }
-                );
-                obj.layers.toggle(2);
-
-
-            }
-            obj.castShadow = true;
+            // obj.material.transparent = false
         }
     });
-    console.log('model', model);
     model.rotation.x = Math.PI / 2;
-    // gui.add( model.rotation, 'y', 0.0, Math.PI * 2, 0.01 )
-    model.scale.set(10, 10, 10);
-    // makeNaive(model)
-    const group = new THREE.Group();
-    group.add(model);
-    scene.add(group);
+    // model.scale.set(3, 3, 3);
+
+    scene.add(model);
     function animationMesh() {
 
         sceneModel.children.forEach((child) => {
