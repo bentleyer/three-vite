@@ -52,6 +52,9 @@ export async function initLoader({
                 obj.material.map = building2BaseColor
                 console.log('obj.material', obj)
             }
+            if (obj.name.includes('bus_car_1')) {
+                obj.material.color = new THREE.Color('#5D98BB')
+            }
             obj.castShadow = true
         }
     });

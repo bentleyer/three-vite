@@ -105,6 +105,9 @@ export async function initLoader({
                     obj.layers.toggle(2);
                 }
             }
+            if (obj.name === 'maincar2_suv_car_1') {
+                obj.material.color = new THREE.Color('black');
+            }
             obj.castShadow = true
         }
     });

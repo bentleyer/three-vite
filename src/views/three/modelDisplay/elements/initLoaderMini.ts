@@ -53,13 +53,19 @@ export async function initLoader({
     const model = gltf.scene;
     model.traverse((obj) => {
         if (obj.isMesh) {
-            if (obj.name.includes('mini6_2')) {
+            if (obj.name.includes('light_lisence')) {
                 obj.material.color = new THREE.Color('white');
                 obj.material.map = building2BaseColor;
-                // obj.material.emissive = new THREE.Color('red');
+                obj.material.opacity = 0
+                obj.material.emissive = new THREE.Color('red');
                 // obj.material.emissiveMap = building2BaseColor;
-
+                obj.material.emissiveIntensity = 0
                 console.log('obj.material', obj);
+
+            }
+            // obj.name.includes('mini6')
+            if (obj.name === 'mini6_1') {
+                obj.material.color = new THREE.Color('white');
 
             }
             obj.castShadow = true;

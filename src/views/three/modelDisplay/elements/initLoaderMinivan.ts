@@ -62,6 +62,9 @@ export async function initLoader({
                 console.log('obj.material', obj);
 
             }
+            if (obj.name.includes('minivan_car_4')) {
+                obj.material.color = new THREE.Color('white');
+            }
             obj.castShadow = true;
         }
     });

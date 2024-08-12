@@ -3,15 +3,15 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import * as THREE from 'three';
 // import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
-import myModel from '@/assets/models/building/building5.glb?url';
+import myModel from '@/assets/models/building/building6.glb?url';
 // import myModel from '@/assets/models/gltf/tree_min.glb?url';
 // import myModel from '@/assets/models/gltf/tree.glb?url';
 // import myModel from '@/assets/models/gltf/tree_mini.glb?url';
 // import myModel from '@/assets/models/gltf/bwm330bm_black.glb?url';
-import textureBuildingBaseColor from '@/assets/images/textures/building/Texture_building5_basecolor_6000.jpeg'
-import textureBuildingHeight from '@/assets/images/textures/building/Texture_building5_specular_6000.jpg'
-import textureBuildingMetallic from '@/assets/images/textures/building/Texture_building5_metalic_6000.jpg'
-import textureBuildingRoughness from '@/assets/images/textures/building/Texture_building5_roughness_6000.jpg'
+import textureBuildingBaseColor from '@/assets/images/textures/building/Texture_buildings_basecolor_6000.jpeg'
+import textureBuildingHeight from '@/assets/images/textures/building/Texture_buildings_specular_6000.jpg'
+import textureBuildingMetallic from '@/assets/images/textures/building/Texture_buildings_metalic_6000.jpg'
+import textureBuildingRoughness from '@/assets/images/textures/building/Texture_buildings_roughness_6000.jpg'
 
 
 export async function initLoader({
@@ -74,7 +74,7 @@ export async function initLoader({
     });
     model.rotation.x = Math.PI / 2;
     // model.scale.set(3, 3, 3);
-
+    console.log('gltf', gltf)
     scene.add(model);
     function animationMesh() {
 

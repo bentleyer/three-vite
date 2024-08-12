@@ -15,6 +15,7 @@ export async function initLoader({
     scene,
     gui
 }) {
+    let mixer
     // const hdrJpgEquirectangularMap = new THREE.CubeTextureLoader().load([ hdr_p_x, hdr_n_x, hdr_p_y, hdr_n_y, hdr_p_z, hdr_n_z ]);
     const textureLoader = new THREE.TextureLoader(); //纹理 被加载管理器统一管理
 
@@ -41,6 +42,9 @@ export async function initLoader({
         loader.loadAsync(myModel),
     ]);
     const model = gltf.scene;
+    mixer = new THREE.AnimationMixer( model );
+    mixer.clipAction( gltf.animations[ 2 ] ).play();
+
     model.traverse((obj) => {
         if (obj.isMesh) {
             // obj.material = new THREE.MeshBasicMaterial({
@@ -71,22 +75,10 @@ export async function initLoader({
 
     scene.add(model);
 
-    function animationMesh() {
-
-        sceneModel.children.forEach((child) => {
-            const rotationSpeed = {
-                x: 0,
-                y: 0.01,
-                z: 0
-            };
-            child.rotation.set(
-                child.rotation.x + rotationSpeed.x,
-                child.rotation.y + rotationSpeed.y,
-                child.rotation.z + rotationSpeed.z
-            );
-        });
+    function animationMesh(delta) {
+        mixer?.update(delta)
     }
     return {
-        animationMesh
+        animationMesh,
     };
 }

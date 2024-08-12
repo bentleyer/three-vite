@@ -19,19 +19,26 @@ import { initGround } from './elements/initGround';
 // import { initLoader } from './elements/initLoader3';
 // import { initLoader } from './elements/initLoaderBuilding1';
 // import { initLoader } from './elements/initLoaderBuilding2';
+// import { initLoader } from './elements/initLoaderBuilding5';
+
 // import { initLoader } from './elements/initLoaderMainCar';
 // import { initLoader } from './elements/initLoaderTree1';
 // import { initLoader } from './elements/initLoaderTreePine';
+import { initLoader } from './elements/initLoaderTreeBush1';
+
 
 // import { initLoader } from './elements/initLoaderPeople';
 // import { initLoader } from './elements/initLoaderPeopleColor';
 // import { initLoader } from './elements/initLoaderSuv';
+// import { initLoader } from './elements/initLoaderSuvOld';
+
 // import { initLoader } from './elements/initLoaderBus';
 // import { initLoader } from './elements/initLoaderLexus';
 import { initLoader as initLoaderLight } from './elements/initLoaderTrafficlight';
 // import { initLoader } from './elements/initLoaderMinivan';
 // import { initLoader } from './elements/initLoaderMini';
-import { initLoader } from './elements/initLoaderBuilding5';
+// import { initLoader } from './elements/initLoaderBuilding5';
+const clock = new THREE.Clock();
 
 // 构建目标路径
 
@@ -55,7 +62,9 @@ window.onresize = function () {
 
 };
 
-initLoader({
+const {
+    animationMesh,
+} = await initLoader({
     scene,
     gui
 });
@@ -89,8 +98,9 @@ console.log('scene', scene,);
 //     camera
 // });
 
-
 function animate() {
+    // const delta = clock.getDelta();
+    // animationMesh(delta)
     controls.update();
     stats.update();
     renderer.render(scene, camera);

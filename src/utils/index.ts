@@ -1,3 +1,6 @@
+import './math/test'
+
+
 // 获取当前文件的绝对路径
 const currentUrl = new URL(import.meta.url).pathname;
 
