@@ -2,16 +2,13 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import * as THREE from 'three';
-// import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
-import myModel from '@/assets/models/car/main_car.glb?url';
-// import myModel from '@/assets/models/gltf/tree_min.glb?url';
-// import myModel from '@/assets/models/gltf/tree.glb?url';
-// import myModel from '@/assets/models/gltf/tree_mini.glb?url';
-// import myModel from '@/assets/models/gltf/bwm330bm_black.glb?url';
-import textureBuilding2BaseColor from '@/assets/images/textures/car/Texture_main_car.png'
-import textureBuilding2Height from '@/assets/images/textures/building/Texture_building2_height_1024.png'
-import textureBuilding2Metallic from '@/assets/images/textures/building/Texture_building2_metallic_1024.png'
-import textureBuilding2Roughness from '@/assets/images/textures/building/Texture_building2_roughness_1024.png'
+// import myModel from '@/assets/models/car/maincar_porsche.glb?url';
+// import myModel from '@/assets/models/car/maincar_lexus.glb?url';
+// import myModel from '@/assets/models/car/maincar_minivan.glb?url';
+// import myModel from '@/assets/models/car/maincar_suv.glb?url';
+import myModel from '@/assets/models/car/maincar_truck.glb?url';
+
+import textureBuilding2BaseColor from '@/assets/images/textures/car/Texture_maincar_truck_basecolor_1024.png'
 
 
 export async function initLoader({
@@ -20,15 +17,9 @@ export async function initLoader({
 }) {
     // const hdrJpgEquirectangularMap = new THREE.CubeTextureLoader().load([ hdr_p_x, hdr_n_x, hdr_p_y, hdr_n_y, hdr_p_z, hdr_n_z ]);
     const textureLoader = new THREE.TextureLoader(); //纹理 被加载管理器统一管理
-    const building2Height = textureLoader.load(textureBuilding2Height);
-    const building2Metallic = textureLoader.load(textureBuilding2Metallic);
     const building2BaseColor= textureLoader.load(textureBuilding2BaseColor);
-    const building2Roughness = textureLoader.load(textureBuilding2Roughness);
 
-    building2Height.flipY = false;
-    building2Metallic.flipY = false;
     building2BaseColor.flipY = false;
-    building2Roughness.flipY = false;
     const sceneModel = new THREE.Group();
     const modelArr = [];
     const dracoLoader = new DRACOLoader();
@@ -55,19 +46,7 @@ export async function initLoader({
     const model = gltf.scene;
     model.traverse((obj) => {
         if (obj.isMesh) {
-            // obj.material = new THREE.MeshBasicMaterial({
-            //     color: new THREE.Color('#fef')
-            // })
-            // obj.material.map = building2BaseColor
-            // obj.material.roughnessMap = building2Roughness
-            // // obj.material.displacementMap = building2Height
-            // obj.material.bumpMap = building2Height
-            // // obj.material.displacementScale = 1
-            // obj.material.metalnessMap = building2Metallic
-            // gui.add( obj.material, 'metalness', 0.0, 4.0, 0.01 )
-
-            // obj.material.transparent = false
-            if (obj.name === 'carlight_license') {
+            if (obj.name === 'truck_light') {
                 obj.material.color = new THREE.Color('white')
                 obj.material.map = building2BaseColor
                 console.log('obj.material', obj)

@@ -77,6 +77,11 @@ const router = createRouter({
             path: '/modelDisplay',
             name: 'modelDisplay',
             component: () => import('@/views/three/modelDisplay/index.vue')
+        },
+        {
+            path: '/g29',
+            name: 'g29',
+            component: () => import('@/views/three/g29/index.vue')
         }
     ]
 });

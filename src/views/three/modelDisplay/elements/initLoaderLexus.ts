@@ -84,6 +84,7 @@ export async function initLoader({
             obj.castShadow = true;
         }
     });
+ 
     console.log('model', model);
     model.rotation.x = Math.PI / 2;
     // gui.add( model.rotation, 'y', 0.0, Math.PI * 2, 0.01 )
@@ -92,6 +93,22 @@ export async function initLoader({
     const group = new THREE.Group();
     group.add(model);
     scene.add(group);
+    group.traverse((obj) => {
+        if (obj.isMesh) {
+            if (obj.name.includes('lexus_back_left') ) {
+                console.log('obj', obj)
+                // obj.rotateX = Math.PI / 4
+                // obj.rotateY = Math.PI / 4
+                // obj.rotateZ = Math.PI / 4
+                obj.rotation.x = Math.PI / 4
+                gui.add(obj.rotation, 'x', 0, Math.PI, 0.1);
+
+                // obj.rotation.y = Math.PI / 2
+                // obj.rotation.z = Math.PI / 2
+                // obj.scale.set(10, 10, 10);
+            }
+        }
+    });
     function animationMesh() {
 
         sceneModel.children.forEach((child) => {

@@ -1,7 +1,6 @@
 
 
 import * as THREE from 'three';
-
 import Stats from 'three/addons/libs/stats.module.js';
 
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -24,7 +23,7 @@ import { initGround } from './elements/initGround';
 // import { initLoader } from './elements/initLoaderMainCar';
 // import { initLoader } from './elements/initLoaderTree1';
 // import { initLoader } from './elements/initLoaderTreePine';
-import { initLoader } from './elements/initLoaderTreeBush1';
+// import { initLoader } from './elements/initLoaderTreeBush1';
 
 
 // import { initLoader } from './elements/initLoaderPeople';
@@ -33,10 +32,13 @@ import { initLoader } from './elements/initLoaderTreeBush1';
 // import { initLoader } from './elements/initLoaderSuvOld';
 
 // import { initLoader } from './elements/initLoaderBus';
+// import { initLoader } from './elements/initLoaderTruck';
 // import { initLoader } from './elements/initLoaderLexus';
+// import { initLoader } from './elements/initLoaderLexusDongFeng';
+
 import { initLoader as initLoaderLight } from './elements/initLoaderTrafficlight';
 // import { initLoader } from './elements/initLoaderMinivan';
-// import { initLoader } from './elements/initLoaderMini';
+import { initLoader } from './elements/initLoaderMini';
 // import { initLoader } from './elements/initLoaderBuilding5';
 const clock = new THREE.Clock();
 
@@ -99,8 +101,8 @@ console.log('scene', scene,);
 // });
 
 function animate() {
-    // const delta = clock.getDelta();
-    // animationMesh(delta)
+    const delta = clock.getDelta();
+    animationMesh(delta)
     controls.update();
     stats.update();
     renderer.render(scene, camera);
@@ -153,5 +155,6 @@ function handleClick() {
 }
 
 export {
-    handleClick
+    handleClick,
 };
+

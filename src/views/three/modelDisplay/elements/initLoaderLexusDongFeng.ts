@@ -3,12 +3,12 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import * as THREE from 'three';
 // import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
-import myModel from '@/assets/models/car/mini.glb?url';
+import myModel from '@/assets/models/car/chinese_lexus_maincar.glb?url';
 // import myModel from '@/assets/models/gltf/tree_min.glb?url';
 // import myModel from '@/assets/models/gltf/tree.glb?url';
 // import myModel from '@/assets/models/gltf/tree_mini.glb?url';
 // import myModel from '@/assets/models/gltf/bwm330bm_black.glb?url';
-import textureBaseColor from '@/assets/images/textures/car/Texture_mini_basecolor_1024.png';
+import textureBaseColor from '@/assets/images/textures/car/Texture_maincar_lexus_basecolor_1024 _chinese.png';
 import type GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
 
@@ -53,20 +53,33 @@ export async function initLoader({
     const model = gltf.scene;
     model.traverse((obj) => {
         if (obj.isMesh) {
-            if (obj.name.includes('mini6_2')) {
+            if (obj.name === 'carlight_license') {
                 obj.material.color = new THREE.Color('white');
                 obj.material.map = building2BaseColor;
-                obj.material.opacity = 0
-                obj.material.emissive = new THREE.Color('red');
+                // obj.material.emissive = new THREE.Color('red');
                 // obj.material.emissiveMap = building2BaseColor;
-                obj.material.emissiveIntensity = 0
-                console.log('obj.material', obj);
+
+                // console.log('obj.material', obj);
+                // gui.addColor(obj.material, 'emissive');
+                // gui.add(obj.material, 'emissiveIntensity', 0, 1, 0.1);
+
+                // gui.add(params, 'punctualLightsEnabled').onChange(
+                //     (val) => {
+                //         if (!val) {
+                //             obj.material.emissiveIntensity = 0;
+                //         } else {
+                //             obj.material.emissiveIntensity = 1;
+                //             // obj.material.emissive = new THREE.Color('red');
+                //         }
+                //         console.log('obj.material', obj.material);
+                //     }
+                // );
+                // obj.layers.toggle(2);
+
 
             }
-            // obj.name.includes('mini6')
-            if (obj.name === 'mini6_1') {
+            if (obj.name.includes('lexus_car_2')) {
                 obj.material.color = new THREE.Color('white');
-
             }
             obj.castShadow = true;
         }

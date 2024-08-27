@@ -16,6 +16,8 @@
     "@tweenjs/tween.js": "^23.1.2",
     "dat.gui": "^0.7.9",
     "gsap": "^3.12.5",
+    "logitech-g29": "^2.0.0",
+    "mitt": "^3.0.1",
     "pinia": "^2.1.7",
     "three": "^0.164.1",
     "three-gpu-pathtracer": "^0.0.22",
