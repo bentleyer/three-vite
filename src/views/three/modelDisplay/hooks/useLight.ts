@@ -13,8 +13,8 @@ export function useLight({
 }) {
     const color = 0xFFFFFF;
     const intensity = 6;
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-    directionalLight.position.set(40, 80, 100);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLight.position.set(-40, 80, 100);
     directionalLight.castShadow = true;
     directionalLight.shadow.camera.top = 1000;
     directionalLight.shadow.camera.bottom = -1000;
@@ -31,7 +31,7 @@ export function useLight({
     directionalLight.shadow.mapSize.height = SHADOW_MAP_HEIGHT;
     scene.add(directionalLight);
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    // scene.add(ambientLight);
     // let samlldirectionalLightt = new THREE.directionalLightt(0xffffff);
     // this.smallScene.add(samlldirectionalLightt);
     gui.add( directionalLight, 'intensity', 0.0, 5.0, 0.1 )

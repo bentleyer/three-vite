@@ -1,13 +1,14 @@
 import * as THREE from 'three';
-import drivingLane from '@/assets/images/textures/ground/sidewalk3.png'
+import drivingLane from '@/assets/images/textures/ground/drivingLane.jpg'
 import grass from '@/assets/images/textures/grass2.jpg';
+import roughness from '@/assets/images/textures/ground/rain/可连续1.png';
 
 import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 import { getIndex } from '@/utils';
 import * as mock from './mock'
 
 
-export function initGround({
+export function initGroundBuffer({
     scene,
     gui
 }: {
@@ -23,6 +24,11 @@ export function initGround({
     driving.wrapS = THREE.RepeatWrapping;
     driving.wrapT = THREE.RepeatWrapping;
 
+    const roughnessMap = textureLoader.load(roughness);
+    roughnessMap.wrapS = THREE.RepeatWrapping;
+    roughnessMap.wrapT = THREE.RepeatWrapping;
+    // roughnessMap.flipY = false
+
     // colorMap.rotation = Math.PI / 4;
     const material = new THREE.MeshStandardMaterial({ color: 0xffdd99, side: THREE.FrontSide });
 
@@ -32,12 +38,14 @@ export function initGround({
         { 
             side: THREE.FrontSide,
             map: driving,
-            // roughness: 1,
+            roughnessMap: roughnessMap,
+            roughness: 1,
             metalness: 1,
             // color: new THREE.Color('white')
         }
     );
-
+    gui.add(materialDriving, 'metalness', 0, 2)
+    gui.add(materialDriving, 'roughness', 0, 2)
 
     const geometry = new THREE.BufferGeometry();
     // 创建顶点
@@ -67,8 +75,8 @@ export function initGround({
     // 创建 UV 坐标
     const uv: number[] = []
     points.forEach((item) => {
-        uv.push(item.x / 5),
-        uv.push(item.y / 5)
+        uv.push(item.x / 3),
+        uv.push(item.y / 3)
     })
     const uvs = new Float32Array(uv);
 

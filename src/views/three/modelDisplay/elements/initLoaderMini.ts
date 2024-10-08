@@ -77,6 +77,13 @@ export async function initLoader({
     model.scale.set(10, 10, 10);
     // makeNaive(model)
     const group = new THREE.Group();
+    group.rotateZ( Math.PI / 2) 
+    group.position.y = -50
+    group.position.z = -5
+
+    gui.add(group.position, 'y', -50, 50)
+    gui.add(group.position, 'x', -50, 30)
+
     group.add(model);
     scene.add(group);
     function animationMesh() {

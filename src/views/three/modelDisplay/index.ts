@@ -11,6 +11,8 @@ import { makeInstance } from './hooks/useInstance';
 // import { initGround as initGroundBuffer } from './elements/initGroundBuffer';
 import { usePostProcessing } from './hooks/usePostprocessing';
 import { initGround } from './elements/initGround';
+import { initGroundBuffer } from './elements/initGroundBuffer';
+
 
 // import { initGround } from './elements/initGroundTerrain';
 
@@ -81,10 +83,10 @@ initGround({
     gui
 });
 
-// initGroundBuffer({
-//     scene,
-//     gui
-// });
+initGroundBuffer({
+    scene,
+    gui
+});
 
 console.log('scene', scene,);
 
