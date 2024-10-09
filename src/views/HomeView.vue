@@ -18,6 +18,7 @@
         <RouterLink to="/pathtrace">pathtrace</RouterLink>
         <RouterLink to="/modelDisplay">modelDisplay</RouterLink>
         <RouterLink to="/g29">g29</RouterLink>
+        <RouterLink to="/rain">rain</RouterLink>
 
 
     <!-- <TheWelcome /> -->

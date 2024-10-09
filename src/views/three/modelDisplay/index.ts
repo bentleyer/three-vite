@@ -42,6 +42,13 @@ import { initLoader as initLoaderLight } from './elements/initLoaderTrafficlight
 // import { initLoader } from './elements/initLoaderMinivan';
 import { initLoader } from './elements/initLoaderMini';
 // import { initLoader } from './elements/initLoaderBuilding5';
+
+
+
+// weather
+import { initRain } from './elements/initRain';
+
+
 const clock = new THREE.Clock();
 
 // 构建目标路径
@@ -83,6 +90,13 @@ initGround({
     gui
 });
 
+const {
+    animationMesh: animationMesh2
+} = initRain({
+    scene,
+    gui
+});
+
 initGroundBuffer({
     scene,
     gui
@@ -104,7 +118,9 @@ console.log('scene', scene,);
 
 function animate() {
     const delta = clock.getDelta();
-    animationMesh(delta)
+    // animationMesh(delta)
+    console.log('animationMesh2')
+    animationMesh2(delta)
     controls.update();
     stats.update();
     renderer.render(scene, camera);

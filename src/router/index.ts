@@ -82,6 +82,11 @@ const router = createRouter({
             path: '/g29',
             name: 'g29',
             component: () => import('@/views/three/g29/index.vue')
+        },
+        {
+            path: '/rain',
+            name: 'rain',
+            component: () => import('@/views/three/rain/index.vue')
         }
     ]
 });

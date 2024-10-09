@@ -120,7 +120,7 @@ export function useHdr({
     }
     updateGUI(toneMappingFolder)
     console.log('scene.background', scene, hdrJpgEquirectangularMap)
-    toneMappingFolder.add(scene.backgroundRotation, 'y', 0, 10, 0.1)
+    // toneMappingFolder.add(scene.backgroundRotation, 'y', 0, 10, 0.1)
 
     return {
         envMap: hdrJpgEquirectangularMap
