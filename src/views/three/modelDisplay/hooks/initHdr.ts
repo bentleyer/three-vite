@@ -28,19 +28,27 @@ import * as THREE from 'three';
 // import hdr_p_x from '@/assets/images/textures/hdrs/cloudy-dusk/p_x.png';
 
 
-// import hdr_n_z from '@/assets/images/textures/hdrs/overcast-daylight/n_z.png';
-// import hdr_n_y from '@/assets/images/textures/hdrs/overcast-daylight/n_y.png';
-// import hdr_n_x from '@/assets/images/textures/hdrs/overcast-daylight/n_x.png';
-// import hdr_p_z from '@/assets/images/textures/hdrs/overcast-daylight/p_z.png';
-// import hdr_p_y from '@/assets/images/textures/hdrs/overcast-daylight/p_y.png';
-// import hdr_p_x from '@/assets/images/textures/hdrs/overcast-daylight/p_x.png';
+import hdr_n_z from '@/assets/images/textures/hdrs/overcast-daylight/n_z.png';
+import hdr_n_y from '@/assets/images/textures/hdrs/overcast-daylight/n_y.png';
+import hdr_n_x from '@/assets/images/textures/hdrs/overcast-daylight/n_x.png';
+import hdr_p_z from '@/assets/images/textures/hdrs/overcast-daylight/p_z.png';
+import hdr_p_y from '@/assets/images/textures/hdrs/overcast-daylight/p_y.png';
+import hdr_p_x from '@/assets/images/textures/hdrs/overcast-daylight/p_x.png';
 
-import hdr_n_z from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/n_z.png';
-import hdr_n_y from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/n_y.png';
-import hdr_n_x from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/n_x.png';
-import hdr_p_z from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/p_z.png';
-import hdr_p_y from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/p_y.png';
-import hdr_p_x from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/p_x.png';
+// import hdr_n_z from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/n_z.png';
+// import hdr_n_y from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/n_y.png';
+// import hdr_n_x from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/n_x.png';
+// import hdr_p_z from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/p_z.png';
+// import hdr_p_y from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/p_y.png';
+// import hdr_p_x from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/p_x.png';
+
+// import hdr_n_z from '@/assets/images/textures/hdrs/overcast-dusk/nz.png';
+// import hdr_n_y from '@/assets/images/textures/hdrs/overcast-dusk/ny.png';
+// import hdr_n_x from '@/assets/images/textures/hdrs/overcast-dusk/nx.png';
+// import hdr_p_z from '@/assets/images/textures/hdrs/overcast-dusk/pz.png';
+// import hdr_p_y from '@/assets/images/textures/hdrs/overcast-dusk/py.png';
+// import hdr_p_x from '@/assets/images/textures/hdrs/overcast-dusk/px.png';
+
 
 
 export function useHdr({
@@ -112,6 +120,8 @@ export function useHdr({
     }
     updateGUI(toneMappingFolder)
     console.log('scene.background', scene, hdrJpgEquirectangularMap)
+    toneMappingFolder.add(scene.backgroundRotation, 'y', 0, 10, 0.1)
+
     return {
         envMap: hdrJpgEquirectangularMap
     }
