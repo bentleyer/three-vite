@@ -23,6 +23,7 @@
     "three-gpu-pathtracer": "^0.0.22",
     "three-mesh-bvh": "^0.7.3",
     "three-pathfinding": "^1.2.0",
+    "three.quarks": "^0.15.5",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"
   },

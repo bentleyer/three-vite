@@ -47,6 +47,7 @@ import { initLoader } from './elements/initLoaderMini';
 
 // weather
 import { initRain } from './elements/initRain';
+import { initParticles } from './elements/initParticles';
 
 
 const clock = new THREE.Clock();
@@ -90,11 +91,19 @@ initGround({
     gui
 });
 
+// const {
+//     animationMesh: animationMesh2
+// } = initRain({
+//     scene,
+//     gui
+// });
+
 const {
     animationMesh: animationMesh2
-} = initRain({
+} = initParticles({
     scene,
-    gui
+    gui,
+    camera
 });
 
 initGroundBuffer({
@@ -119,7 +128,7 @@ console.log('scene', scene,);
 function animate() {
     const delta = clock.getDelta();
     // animationMesh(delta)
-    console.log('animationMesh2')
+    // animationMesh2(delta)
     animationMesh2(delta)
     controls.update();
     stats.update();

@@ -63,7 +63,6 @@ export function initGroundBuffer({
     // ]
     // points.reverse()
     const points = mock.points2
-    console.log('points', points)
     const position: number[] = []
     points.forEach((item) => {
         position.push(item.x),

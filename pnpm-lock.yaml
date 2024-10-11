@@ -31,6 +31,9 @@ dependencies:
   three-pathfinding:
     specifier: ^1.2.0
     version: 1.2.0(three@0.164.1)
+  three.quarks:
+    specifier: ^0.15.5
+    version: 0.15.5(three@0.164.1)
   vue:
     specifier: ^3.3.11
     version: 3.3.11(typescript@5.3.2)
@@ -2411,6 +2414,10 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /quarks.core@0.15.4:
+    resolution: {integrity: sha512-pNR8EVLkNNKgA0fQngtQk3EGdH2fJT7a7JJK73tDdW10C4sT7Pt2qpHcv/j8jWigQOFq0SajTPanoZRhxCOsCQ==}
+    dev: false
+
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
@@ -2663,6 +2670,15 @@ packages:
     peerDependencies:
       three: 0.x.x
     dependencies:
+      three: 0.164.1
+    dev: false
+
+  /three.quarks@0.15.5(three@0.164.1):
+    resolution: {integrity: sha512-ZI112Z8brSVnVWuL7vfLCMGhcuWSxGr1ihWr5T45v2HensNYwIQcUK8gRw3Dy4SqAYoilJPo4IOLQHIwusn9GQ==}
+    peerDependencies:
+      three: '>=0.165.0'
+    dependencies:
+      quarks.core: 0.15.4
       three: 0.164.1
     dev: false
 
