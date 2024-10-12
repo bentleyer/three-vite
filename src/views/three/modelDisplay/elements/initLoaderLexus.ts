@@ -83,6 +83,9 @@ export async function initLoader({
             }
             obj.castShadow = true;
         }
+        if (obj.isLight) {
+            obj.castShadow = true;
+        }
     });
  
     console.log('model', model);

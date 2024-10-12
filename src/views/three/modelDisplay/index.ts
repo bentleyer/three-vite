@@ -35,12 +35,12 @@ import { initGroundBuffer } from './elements/initGroundBuffer';
 
 // import { initLoader } from './elements/initLoaderBus';
 // import { initLoader } from './elements/initLoaderTruck';
-// import { initLoader } from './elements/initLoaderLexus';
+import { initLoader } from './elements/initLoaderLexus';
 // import { initLoader } from './elements/initLoaderLexusDongFeng';
 
 import { initLoader as initLoaderLight } from './elements/initLoaderTrafficlight';
 // import { initLoader } from './elements/initLoaderMinivan';
-import { initLoader } from './elements/initLoaderMini';
+import { initLoader as initLoader2 } from './elements/initLoaderMini';
 // import { initLoader } from './elements/initLoaderBuilding5';
 
 
@@ -78,6 +78,13 @@ window.onresize = function () {
 const {
     animationMesh,
 } = await initLoader({
+    scene,
+    gui
+});
+
+const {
+    
+} = await initLoader2({
     scene,
     gui
 });

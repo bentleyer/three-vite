@@ -79,10 +79,10 @@ export async function initLoader({
     const group = new THREE.Group();
     group.rotateZ( Math.PI / 2) 
     group.position.y = -42
-    group.position.z = -5
+    group.position.z = 0
 
-    // gui.add(group.position, 'y', -50, 50)
-    // gui.add(group.position, 'x', -50, 30)
+    gui.add(group.position, 'y', -50, 50)
+    gui.add(group.position, 'x', -50, 30)
 
     group.add(model);
     scene.add(group);
