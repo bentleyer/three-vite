@@ -8,6 +8,7 @@ import hdr_p_y from '@/assets/images/textures/hdrs/skybox/p_y.jpg';
 import hdr_p_x from '@/assets/images/textures/hdrs/skybox/p_x.jpg';
 
 
+
 export function useSkybox({
     scene,
     renderer,

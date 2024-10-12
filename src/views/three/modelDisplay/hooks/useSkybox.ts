@@ -65,7 +65,7 @@ export function useSkybox({
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMappingExposure = 1;
 
-    const skyboxGeometry = new THREE.BoxGeometry(2000, 2000, 2000, 1, 1, 1);
+    const skyboxGeometry = new THREE.BoxGeometry(2, 2, 2, 1, 1, 1);
     const skyboxMaterial = new THREE.ShaderMaterial({
         uniforms:{
 

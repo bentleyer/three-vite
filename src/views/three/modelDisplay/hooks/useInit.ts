@@ -11,6 +11,7 @@ import { useLensflare } from './useLensflare';
 import { usePointLight } from './usePointLight';
 import { useFog } from './useFog';
 // import { useSkybox } from './useSkybox';
+import { useSkybox } from './useSkyboxSphere';
 
 
 export function useInit() {
@@ -60,11 +61,11 @@ export function useInit() {
         renderer,
         gui
     })
-    // const {  } = useSkybox({
-    //     scene,
-    //     renderer,
-    //     gui
-    // })
+    const {  } = useSkybox({
+        scene,
+        renderer,
+        gui
+    })
     function animation(delta) {
         
     }
