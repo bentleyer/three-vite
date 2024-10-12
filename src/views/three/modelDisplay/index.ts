@@ -62,7 +62,8 @@ const {
     controls,
     // light,
     gui,
-    envMap
+    envMap,
+    animation: animationEnv
 } = useInit();
 
 window.onresize = function () {

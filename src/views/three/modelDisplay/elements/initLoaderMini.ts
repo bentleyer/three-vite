@@ -78,7 +78,7 @@ export async function initLoader({
     // makeNaive(model)
     const group = new THREE.Group();
     group.rotateZ( Math.PI / 2) 
-    group.position.y = -50
+    group.position.y = -42
     group.position.z = -5
 
     // gui.add(group.position, 'y', -50, 50)

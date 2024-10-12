@@ -10,6 +10,8 @@ import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { useLensflare } from './useLensflare';
 import { usePointLight } from './usePointLight';
 import { useFog } from './useFog';
+// import { useSkybox } from './useSkybox';
+
 
 export function useInit() {
     const gui = new GUI()
@@ -58,6 +60,14 @@ export function useInit() {
         renderer,
         gui
     })
+    // const {  } = useSkybox({
+    //     scene,
+    //     renderer,
+    //     gui
+    // })
+    function animation(delta) {
+        
+    }
     return {
         scene,
         camera,
@@ -66,6 +76,7 @@ export function useInit() {
         // light,
         stats,
         gui,
-        envMap
+        envMap,
+        animation
     }
 }

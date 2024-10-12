@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { BatchedRenderer, IntervalValue, ConstantColor, ConstantValue, PointEmitter, ParticleSystem, FrameOverLife, PiecewiseBezier, SizeOverLife, Bezier, ColorOverLife, ColorRange, RenderMode, ConeEmitter, Noise, BatchedParticleRenderer, CircleEmitter, GridEmitter } from 'three.quarks';
 import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 // import snow from '@/assets/images/textures/sprites/texture1.png';
-import snow from '@/assets/images/textures/sprites/snowflake1.png'
+import snow from '@/assets/images/textures/sprites/snowflake1.png';
 
 export function initParticles({
     scene,
@@ -74,9 +74,10 @@ export function initParticles({
         looping: true,
         startLife: new IntervalValue(6, 10), // 雨滴生命周期
         startSpeed: new IntervalValue(20, 30), // 雨滴下落速度
-        startSize: new ConstantValue(2),
+        startSize: new IntervalValue(0.5, 1),
+        startLength: new ConstantValue(10),
         // startSize: new IntervalValue(0.5, 0.8), // 雨滴的大小
-        startColor: new ColorRange(new THREE.Vector4(1, 1, 1, 0.8), new THREE.Vector4(1, 1, 1, 1)), // 白色到透明
+        startColor: new ColorRange(new THREE.Vector4(1, 1, 1, 0.8), new THREE.Vector4(1, 1, 1, 1),), // 白色到透明
         worldSpace: true,
 
         emissionOverTime: new ConstantValue(2000),
@@ -100,20 +101,40 @@ export function initParticles({
     // ps.addBehavior(new Noise(new ConstantValue(1), new ConstantValue(2)));
     ps.emitter.rotation.x = Math.PI;
     ps.emitter.position.z = 0;
+    ps.prewarm = true;
     scene.add(ps.emitter);
     batchRenderer.addSystem(ps);
-    // batchRenderer.rotation.x = Math.PI / 2
+    batchRenderer.position.z = 200;
+    // 预热操作
+    for (let i = 0; i < 10; i++)  {
+        batchRenderer.update(3);
+    }
+    // batchRenderer.update(3);
+    // batchRenderer.update(3);
 
+    // batchRenderer.rotation.x = Math.PI / 2
+    let i = 0;
     function animationMesh(delta) {
-        const range = 100
-        const x = Math.floor(camera.position.x / range) * range + range / 2
-        const y = Math.floor(camera.position.y / range) * range + range / 2
-        const z = Math.floor(camera.position.z / range) * range + range / 2
-        batchRenderer.position.set(x, y, z)
+        // const range = 100
+        // const x = Math.floor(camera.position.x / range) * range + range / 2
+        // const y = Math.floor(camera.position.y / range) * range + range / 2
+        // const z = Math.floor(camera.position.z / range) * range + range
+        // batchRenderer.position.set(x, y, z)
         // batchRenderer.position.copy(camera.position)
         // batchRenderer.position.z -= 10
-        batchRenderer.update(delta);
+        // batchRenderer.update(delta);
+        if (i < 100) {
+            // batchRenderer.update(delta);
+            i++;
+        }
     }
+
+    // setTimeout(() => {
+    //     ps.pause()
+    //     setTimeout(() => {
+    //         ps.play()
+    //     }, 5000)
+    // }, 5000)
     return {
         batchRenderer,
         animationMesh
