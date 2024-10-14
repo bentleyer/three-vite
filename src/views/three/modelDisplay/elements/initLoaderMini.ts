@@ -81,8 +81,8 @@ export async function initLoader({
     group.position.y = -42
     group.position.z = 0
 
-    gui.add(group.position, 'y', -50, 50)
-    gui.add(group.position, 'x', -50, 30)
+    // gui.add(group.position, 'y', -50, 50)
+    // gui.add(group.position, 'x', -50, 30)
 
     group.add(model);
     scene.add(group);

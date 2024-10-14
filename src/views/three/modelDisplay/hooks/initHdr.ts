@@ -44,12 +44,12 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 // import hdr_p_y from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/p_y.png';
 // import hdr_p_x from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/p_x.png';
 
-// import hdr_n_z from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_z.png';
-// import hdr_n_y from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_y.png';
-// import hdr_n_x from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_x.png';
-// import hdr_p_z from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_z.png';
-// import hdr_p_y from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_y.png';
-// import hdr_p_x from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_x.png';
+import hdr_n_z from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_z.png';
+import hdr_n_y from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_y.png';
+import hdr_n_x from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_x.png';
+import hdr_p_z from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_z.png';
+import hdr_p_y from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_y.png';
+import hdr_p_x from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_x.png';
 
 // import hdr_n_z from '@/assets/images/textures/hdrs/Texture-sunny-noon-HDRI-2048/n_z.png';
 // import hdr_n_y from '@/assets/images/textures/hdrs/Texture-sunny-noon-HDRI-2048/n_y.png';
@@ -66,12 +66,12 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 // import hdr_p_x from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/p_x.png';
 
 
-import hdr_n_z from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/n_z.png';
-import hdr_n_y from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/n_y.png';
-import hdr_n_x from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/n_x.png';
-import hdr_p_z from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/p_z.png';
-import hdr_p_y from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/p_y.png';
-import hdr_p_x from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/p_x.png';
+// import hdr_n_z from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/n_z.png';
+// import hdr_n_y from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/n_y.png';
+// import hdr_n_x from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/n_x.png';
+// import hdr_p_z from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/p_z.png';
+// import hdr_p_y from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/p_y.png';
+// import hdr_p_x from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/p_x.png';
 
 
 
@@ -93,10 +93,9 @@ export function useHdr({
     // const sphere = new THREE.TextureLoader().load(sphereImg)
     // console.log('sphere', sphere)
     const hdrJpgEquirectangularMap = new THREE.CubeTextureLoader().load([ hdr_p_x, hdr_n_x, hdr_p_y, hdr_n_y, hdr_p_z, hdr_n_z ]);
-    const image1 = new THREE.TextureLoader().load(hdr_n_x);
 
     scene.environment = hdrJpgEquirectangularMap;
-    // scene.background = hdrJpgEquirectangularMap;
+    scene.background = hdrJpgEquirectangularMap;
     // scene.background = new THREE.Color('green')
     renderer.toneMapping = THREE.NeutralToneMapping;
     renderer.outputColorSpace = THREE.SRGBColorSpace;

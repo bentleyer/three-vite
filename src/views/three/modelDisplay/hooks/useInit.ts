@@ -61,11 +61,11 @@ export function useInit() {
         renderer,
         gui
     })
-    const {  } = useSkybox({
-        scene,
-        renderer,
-        gui
-    })
+    // const {  } = useSkybox({
+    //     scene,
+    //     renderer,
+    //     gui
+    // })
     function animation(delta) {
         
     }

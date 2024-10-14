@@ -20,6 +20,8 @@ import { initGroundBuffer } from './elements/initGroundBuffer';
 // import { initLoader } from './elements/initLoader3';
 // import { initLoader } from './elements/initLoaderBuilding1';
 // import { initLoader } from './elements/initLoaderBuilding2';
+import { initLoader } from './elements/initLoaderBuilding3';
+
 // import { initLoader } from './elements/initLoaderBuilding5';
 
 // import { initLoader } from './elements/initLoaderMainCar';
@@ -35,7 +37,7 @@ import { initGroundBuffer } from './elements/initGroundBuffer';
 
 // import { initLoader } from './elements/initLoaderBus';
 // import { initLoader } from './elements/initLoaderTruck';
-import { initLoader } from './elements/initLoaderLexus';
+// import { initLoader } from './elements/initLoaderLexus';
 // import { initLoader } from './elements/initLoaderLexusDongFeng';
 
 import { initLoader as initLoaderLight } from './elements/initLoaderTrafficlight';
