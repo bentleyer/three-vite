@@ -46,10 +46,10 @@ import { initLoader as initLoader2 } from './elements/initLoaderMini';
 // import { initLoader } from './elements/initLoaderBuilding5';
 
 
-
 // weather
 import { initRain } from './elements/initRain';
 import { initParticles } from './elements/initParticles';
+import { initCloud  } from './elements/initCloud';
 
 
 const clock = new THREE.Clock();
@@ -77,29 +77,28 @@ window.onresize = function () {
 
 };
 
-const {
-    animationMesh,
-} = await initLoader({
-    scene,
-    gui
-});
+// const {
+//     animationMesh,
+// } = await initLoader({
+//     scene,
+//     gui
+// });
 
-const {
+// const {
     
-} = await initLoader2({
-    scene,
-    gui
-});
+// } = await initLoader2({
+//     scene,
+//     gui
+// });
 
 // initLoaderLight({
 //     scene,
 //     gui
 // });
 
-initGround({
-    scene,
-    gui
-});
+
+
+// 天气
 
 // const {
 //     animationMesh: animationMesh2
@@ -116,9 +115,22 @@ const {
     camera
 });
 
-initGroundBuffer({
+//  await initCloud({
+//     scene,
+//     gui,
+//     camera
+// });
+
+// 地面
+
+initGround({
     scene,
     gui
+});
+
+initGroundBuffer({
+    scene,
+    gui,
 });
 
 console.log('scene', scene,);
@@ -138,8 +150,8 @@ console.log('scene', scene,);
 function animate() {
     const delta = clock.getDelta();
     // animationMesh(delta)
-    // animationMesh2(delta)
     animationMesh2(delta)
+    // animationMesh2(delta)
     controls.update();
     stats.update();
     renderer.render(scene, camera);

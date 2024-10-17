@@ -1,8 +1,50 @@
 import * as THREE from 'three';
-import { BatchedRenderer, IntervalValue, ConstantColor, ConstantValue, PointEmitter, ParticleSystem, FrameOverLife, PiecewiseBezier, SizeOverLife, Bezier, ColorOverLife, ColorRange, RenderMode, ConeEmitter, Noise, BatchedParticleRenderer, CircleEmitter, GridEmitter } from 'three.quarks';
+import {
+    Group,
+    Scene,
+    MeshBasicMaterial,
+    DoubleSide,
+    Mesh,
+    Vector3,
+    Vector4,
+    Color,
+    AdditiveBlending,
+    TextureLoader,
+    CapsuleGeometry,
+    MeshStandardMaterial
+} from 'three';
+import { BatchedRenderer, IntervalValue, ConstantColor, ConstantValue, PointEmitter, ParticleSystem, FrameOverLife, PiecewiseBezier, SizeOverLife, Bezier, ColorOverLife, ColorRange, RenderMode, ConeEmitter, Noise, BatchedParticleRenderer, CircleEmitter, GridEmitter, RandomColorBetweenGradient, Gradient, } from '../modules/three.quarks.esm.js';
 import GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 // import snow from '@/assets/images/textures/sprites/texture1.png';
 import snow from '@/assets/images/textures/sprites/snowflake1.png';
+import rainFrag from '../shader/rain/particle_frag.glsl.js';
+import rainVert from '../shader/rain/local_particle_vert.glsl.js';
+
+// 顶点着色器
+const vertexShader = `
+    varying vec2 vUv;
+    varying float vAlpha;
+
+    void main() {
+        vUv = uv;
+        vAlpha = 1.0 - uv.y;  // 根据位置设置透明度
+        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        gl_Position = projectionMatrix * mvPosition;
+        gl_PointSize = 10.0; // 控制雨滴大小
+    }
+`;
+
+// 片元着色器
+const fragmentShader = `
+    varying vec2 vUv;
+    varying float vAlpha;
+
+    void main() {
+        vec3 color = vec3(1.0, 0.0, 0.0); // 雨滴颜色（白色）
+        gl_FragColor = vec4(color, 1.0); // 透明度
+    }
+`;
+
 
 export function initParticles({
     scene,
@@ -69,44 +111,100 @@ export function initParticles({
     // // Add emitter to your Object3D
     // scene.add(muzzle1.emitter);
     // scene.add(batchSystem);
+    const geo = new CapsuleGeometry(1.0, 3.0);
+    const mat = new MeshStandardMaterial({
+        color: new Color(0.5, 0.5, 0.5),
+        roughness: 0.2,
+        metalness: 1.0,
+    });
+    const gBase = new THREE.BufferGeometry().setFromPoints([ new THREE.Vector2(0, 0), new THREE.Vector2(0, 1) ]);
+    const geometry = new THREE.BoxGeometry(0.01, 0.01, 1);
+
+
     const ps = new ParticleSystem({
         duration: -1, // 无限循环
         looping: true,
-        startLife: new IntervalValue(6, 10), // 雨滴生命周期
-        startSpeed: new IntervalValue(20, 30), // 雨滴下落速度
-        startSize: new IntervalValue(0.5, 1),
-        startLength: new ConstantValue(10),
+        instancingGeometry: geometry,
+        startLife: new IntervalValue(3, 5), // 雨滴生命周期
+        startSpeed: new IntervalValue(40, 60), // 雨滴下落速度
+        startSize: new IntervalValue(1, 2),
+        // startLength: new ConstantValue(100),
         // startSize: new IntervalValue(0.5, 0.8), // 雨滴的大小
         startColor: new ColorRange(new THREE.Vector4(1, 1, 1, 0.8), new THREE.Vector4(1, 1, 1, 1),), // 白色到透明
         worldSpace: true,
 
-        emissionOverTime: new ConstantValue(2000),
-        shape: new GridEmitter({ width: 300, height: 300, column: 100, row: 100 }),
-        material: new THREE.MeshBasicMaterial({
-            map: texture,
-            blending: THREE.AdditiveBlending,
+        emissionOverTime: new ConstantValue(10000),
+        shape: new GridEmitter({ width: 200, height: 200, column: 100, row: 100 }),
+        // material: new THREE.MeshBasicMaterial({
+        //     // map: texture,
+        //     // blending: THREE.AdditiveBlending,
+        //     // blending: THREE.AdditiveBlending,
+        //     depthTest: false,
+        //     transparent: true,
+        //     userData: {
+        //         useShader: true
+        //     },
+        //     // color: 'red',
+        //     side: THREE.DoubleSide,
+        // }),
+        material: new THREE.ShaderMaterial({
+            vertexShader: rainVert,
+            fragmentShader: rainFrag,
             // blending: THREE.AdditiveBlending,
-            // depthTest: false,
+            depthTest: false,
             transparent: true,
-            // color: 'red',
             side: THREE.DoubleSide,
+            userData: {
+                useShader: true
+            },
         }),
-        renderMode: RenderMode.BillBoard,
+        renderMode: RenderMode.Mesh,
+        // renderMode: RenderMode.StretchedBillBoard,
+        // rendererEmitterSettings: {
+        //     // speedFactor: 0,
+        //     lengthFactor: 30,
+        // },
+        // renderMode: RenderMode.BillBoard,
         // startTileIndex: new ConstantValue(0),
         // uTileCount: 10,
         // vTileCount: 10,
         // renderOrder: 0,
     });
+    // ps.addBehavior(
+    //     new ColorOverLife(
+    //         new RandomColorBetweenGradient(
+    //             new Gradient(
+    //                 [
+    //                     [new Vector3(1, 0, 0), 0],
+    //                     [new Vector3(1, 0, 0), 0],
+    //                 ],
+    //                 [
+    //                     [1, 0],
+    //                     [1, 1],
+    //                 ]
+    //             ),
+    //             new Gradient(
+    //                 [
+    //                     [new Vector3(0, 1, 0), 0],
+    //                     [new Vector3(0, 1, 0), 1],
+    //                 ],
+    //                 [
+    //                     [1, 0],
+    //                     [1, 1],
+    //                 ]
+    //             )
+    //         )
+    //     )
+    // );
     ps.emitter.name = 'ps';
     // ps.addBehavior(new Noise(new ConstantValue(1), new ConstantValue(2)));
     ps.emitter.rotation.x = Math.PI;
     ps.emitter.position.z = 0;
-    ps.prewarm = true;
     scene.add(ps.emitter);
     batchRenderer.addSystem(ps);
-    batchRenderer.position.z = 200;
+    batchRenderer.position.z = 100;
     // 预热操作
-    for (let i = 0; i < 10; i++)  {
+    for (let i = 0; i < 100; i++) {
         batchRenderer.update(3);
     }
     // batchRenderer.update(3);
@@ -122,7 +220,7 @@ export function initParticles({
         // batchRenderer.position.set(x, y, z)
         // batchRenderer.position.copy(camera.position)
         // batchRenderer.position.z -= 10
-        // batchRenderer.update(delta);
+        batchRenderer.update(delta);
         if (i < 100) {
             // batchRenderer.update(delta);
             i++;

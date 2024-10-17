@@ -19,7 +19,6 @@ export function initRain({
 
     scene.add(rain);
     function animationMesh(delta) {
-        console.log('gu.time.value', delta)
         gu.time.value = gu.time.value + delta  / 1
     }
     return {

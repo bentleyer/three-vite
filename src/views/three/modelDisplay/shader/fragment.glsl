@@ -1,10 +1,12 @@
-uniform sampler2D baseTexture;
-uniform sampler2D bloomTexture;
-
+varying vec3 vPosition;  // 顶点着色器传递的顶点位置
+uniform sampler2D tex;  // 纹理贴图
 varying vec2 vUv;
 
 void main() {
 
-    gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+    // 采样贴图上的颜色
+    vec4 texColor = texture2D(tex, vUv);
 
+    // 使用纹理颜色作为片段颜色
+    gl_FragColor = texColor;
 }
