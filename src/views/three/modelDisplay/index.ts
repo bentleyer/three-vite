@@ -11,7 +11,7 @@ import { makeInstance } from './hooks/useInstance';
 // import { initGround as initGroundBuffer } from './elements/initGroundBuffer';
 import { usePostProcessing } from './hooks/usePostprocessing';
 import { initGround } from './elements/initGround';
-import { initGroundBuffer } from './elements/initGroundBuffer';
+import { initGroundBuffer } from './elements/initGroundBuffer3';
 
 
 // import { initGround } from './elements/initGroundTerrain';
@@ -128,7 +128,9 @@ initGround({
     gui
 });
 
-initGroundBuffer({
+const {
+    animationMesh: animationMesh3
+} = initGroundBuffer({
     scene,
     gui,
 });
@@ -151,6 +153,7 @@ function animate() {
     const delta = clock.getDelta();
     // animationMesh(delta)
     animationMesh2(delta)
+    animationMesh3(delta)
     // animationMesh2(delta)
     controls.update();
     stats.update();

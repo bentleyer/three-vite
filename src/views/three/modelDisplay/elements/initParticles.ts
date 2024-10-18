@@ -118,7 +118,7 @@ export function initParticles({
         metalness: 1.0,
     });
     const gBase = new THREE.BufferGeometry().setFromPoints([ new THREE.Vector2(0, 0), new THREE.Vector2(0, 1) ]);
-    const geometry = new THREE.BoxGeometry(0.01, 0.01, 1);
+    const geometry = new THREE.BoxGeometry(0.03, 0.03, 1);
 
 
     const ps = new ParticleSystem({

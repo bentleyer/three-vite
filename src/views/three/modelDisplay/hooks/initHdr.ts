@@ -22,12 +22,12 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 // import hdr_p_y from '@/assets/images/textures/hdrs/cloudy_daylight/p_y.png';
 // import hdr_p_x from '@/assets/images/textures/hdrs/cloudy_daylight/p_x.png';
 
-// import hdr_n_z from '@/assets/images/textures/hdrs/cloudy-dusk/n_z.png';
-// import hdr_n_y from '@/assets/images/textures/hdrs/cloudy-dusk/n_y.png';
-// import hdr_n_x from '@/assets/images/textures/hdrs/cloudy-dusk/n_x.png';
-// import hdr_p_z from '@/assets/images/textures/hdrs/cloudy-dusk/p_z.png';
-// import hdr_p_y from '@/assets/images/textures/hdrs/cloudy-dusk/p_y.png';
-// import hdr_p_x from '@/assets/images/textures/hdrs/cloudy-dusk/p_x.png';
+// import hdr_n_z from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/n_z.png';
+// import hdr_n_y from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/n_y.png';
+// import hdr_n_x from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/n_x.png';
+// import hdr_p_z from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/p_z.png';
+// import hdr_p_y from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/p_y.png';
+// import hdr_p_x from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/p_x.png';
 
 
 // import hdr_n_z from '@/assets/images/textures/hdrs/overcast-daylight/n_z.png';
@@ -44,12 +44,12 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 // import hdr_p_y from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/p_y.png';
 // import hdr_p_x from '@/assets/images/textures/hdrs/Texture-sunny-dusk-HDRI-2048/p_x.png';
 
-import hdr_n_z from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_z.png';
-import hdr_n_y from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_y.png';
-import hdr_n_x from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_x.png';
-import hdr_p_z from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_z.png';
-import hdr_p_y from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_y.png';
-import hdr_p_x from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_x.png';
+// import hdr_n_z from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_z.png';
+// import hdr_n_y from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_y.png';
+// import hdr_n_x from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/n_x.png';
+// import hdr_p_z from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_z.png';
+// import hdr_p_y from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_y.png';
+// import hdr_p_x from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048/p_x.png';
 
 // import hdr_n_z from '@/assets/images/textures/hdrs/Texture-sunny-noon-HDRI-2048/n_z.png';
 // import hdr_n_y from '@/assets/images/textures/hdrs/Texture-sunny-noon-HDRI-2048/n_y.png';
@@ -58,12 +58,12 @@ import hdr_p_x from '@/assets/images/textures/hdrs/Texture-sunny-night-HDRI-2048
 // import hdr_p_y from '@/assets/images/textures/hdrs/Texture-sunny-noon-HDRI-2048/p_y.png';
 // import hdr_p_x from '@/assets/images/textures/hdrs/Texture-sunny-noon-HDRI-2048/p_x.png';
 
-// import hdr_n_z from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/n_z.png';
-// import hdr_n_y from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/n_y.png';
-// import hdr_n_x from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/n_x.png';
-// import hdr_p_z from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/p_z.png';
-// import hdr_p_y from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/p_y.png';
-// import hdr_p_x from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/p_x.png';
+import hdr_n_z from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/n_z.png';
+import hdr_n_y from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/n_y.png';
+import hdr_n_x from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/n_x.png';
+import hdr_p_z from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/p_z.png';
+import hdr_p_y from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/p_y.png';
+import hdr_p_x from '@/assets/images/textures/hdrs/Texture-overcast-daylight-HDRI-2048/p_x.png';
 
 
 // import hdr_n_z from '@/assets/images/textures/hdrs/Texture-cloudy-daylight-HDRI-2048/n_z.png';
