@@ -20,7 +20,7 @@ import { initGroundBuffer } from './elements/initGroundBuffer3';
 // import { initLoader } from './elements/initLoader3';
 // import { initLoader } from './elements/initLoaderBuilding1';
 // import { initLoader } from './elements/initLoaderBuilding2';
-import { initLoader } from './elements/initLoaderBuilding3';
+// import { initLoader } from './elements/initLoaderBuilding3';
 
 // import { initLoader } from './elements/initLoaderBuilding5';
 
@@ -32,17 +32,17 @@ import { initLoader } from './elements/initLoaderBuilding3';
 
 // import { initLoader } from './elements/initLoaderPeople';
 // import { initLoader } from './elements/initLoaderPeopleColor';
-// import { initLoader } from './elements/initLoaderSuv';
+import { initLoader } from './elements/initLoaderSuv';
 // import { initLoader } from './elements/initLoaderSuvOld';
 
 // import { initLoader } from './elements/initLoaderBus';
 // import { initLoader } from './elements/initLoaderTruck';
-// import { initLoader } from './elements/initLoaderLexus';
+import { initLoader as initLoader2 } from './elements/initLoaderLexus';
 // import { initLoader } from './elements/initLoaderLexusDongFeng';
 
 import { initLoader as initLoaderLight } from './elements/initLoaderTrafficlight';
 // import { initLoader } from './elements/initLoaderMinivan';
-import { initLoader as initLoader2 } from './elements/initLoaderMini';
+// import { initLoader } from './elements/initLoaderMini';
 // import { initLoader } from './elements/initLoaderBuilding5';
 
 
@@ -77,19 +77,19 @@ window.onresize = function () {
 
 };
 
-// const {
-//     animationMesh,
-// } = await initLoader({
-//     scene,
-//     gui
-// });
+const {
+    animationMesh,
+} = await initLoader({
+    scene,
+    gui
+});
 
-// const {
+const {
     
-// } = await initLoader2({
-//     scene,
-//     gui
-// });
+} = await initLoader2({
+    scene,
+    gui
+});
 
 // initLoaderLight({
 //     scene,
@@ -107,13 +107,13 @@ window.onresize = function () {
 //     gui
 // });
 
-const {
-    animationMesh: animationMesh2
-} = initParticles({
-    scene,
-    gui,
-    camera
-});
+// const {
+//     animationMesh: animationMesh2
+// } = initParticles({
+//     scene,
+//     gui,
+//     camera
+// });
 
 //  await initCloud({
 //     scene,
@@ -152,7 +152,7 @@ console.log('scene', scene,);
 function animate() {
     const delta = clock.getDelta();
     // animationMesh(delta)
-    animationMesh2(delta)
+    // animationMesh2(delta)
     animationMesh3(delta)
     // animationMesh2(delta)
     controls.update();

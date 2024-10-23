@@ -1,3 +1,5 @@
+// 涟漪效果
+
 import * as THREE from 'three';
 import drivingLane from '@/assets/images/textures/ground/drivingLane.jpg';
 import grass from '@/assets/images/textures/grass2.jpg';
@@ -145,8 +147,8 @@ export function initGroundBuffer({
     };
 
 
-    gui.add(materialDriving, 'metalness', 0, 2);
-    gui.add(materialDriving, 'roughness', 0, 2);
+    // gui.add(materialDriving, 'metalness', 0, 2);
+    // gui.add(materialDriving, 'roughness', 0, 2);
 
     const geometry = new THREE.BufferGeometry();
     // 创建顶点

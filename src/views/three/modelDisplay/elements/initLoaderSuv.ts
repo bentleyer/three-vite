@@ -10,7 +10,10 @@ import myModel from '@/assets/models/car/3008.glb?url';
 // import myModel from '@/assets/models/gltf/bwm330bm_black.glb?url';
 import textureBaseColor from '@/assets/images/textures/car/Texture_suv_basecolor_1024.jpg'
 
-import textureEmissiveColor from '@/assets/images/textures/car/suv_emissive.jpg'
+// import textureEmissiveColor from '@/assets/images/textures/car/suv_emissive.jpg'
+import textureEmissiveColor from '@/assets/images/textures/car/suv-emission2.jpeg'
+// import textureEmissiveColor from '@/assets/images/textures/car/suv-emission.jpeg'
+// import textureEmissiveColor from '@/assets/images/textures/car/suv-emission3.jpeg'
 
 
 
@@ -34,6 +37,7 @@ export async function initLoader({
 
     building2BaseColor.flipY = false;
     emissiveColor.flipY = false;
+    emissiveColor.colorSpace = THREE.SRGBColorSpace
 
     const sceneModel = new THREE.Group();
     const modelArr = [];
@@ -79,24 +83,31 @@ export async function initLoader({
     const model = gltf.scene;
     model.traverse((obj) => {
         if (obj.isMesh) {
+            // obj.material =  new THREE.MeshPhysicalMaterial()
             obj.material = obj.material.clone()
             if (obj.name.includes('carlight') || obj.name.includes('license') ) {
                 obj.material.color = new THREE.Color('white')
                 obj.material.map = building2BaseColor
-                obj.material.emissive = new THREE.Color('red');
-                obj.material.emissiveMap = building2BaseColor;
-                // obj.material.emissiveMap = emissiveColor;
+                obj.material.emissive = new THREE.Color('#ffc800');
+                // obj.material.emissiveMap = building2BaseColor;
+                obj.material.emissiveMap = emissiveColor;
                 if (getLocation(obj.name) !== 'default') {
                     const folder = gui.addFolder(getLocation(obj.name));
                     folder.addColor(obj.material, 'emissive');
+                    folder.addColor(obj.material, 'color');
 
-                    folder.add(obj.material, 'emissiveIntensity', 0, 1, 0.1);
+                    folder.add(obj.material, 'roughness', 0, 10, 0.1);
+                    folder.add(obj.material, 'metalness', 0, 10, 0.1);
+
+                    folder.add(obj.material, 'emissiveIntensity', 0, 10, 0.1);
                     console.log('obj', obj)
                     folder.add(params, getLocation(obj.name)).onChange(
                         (val) => {
                             if (!val) {
+                                // obj.material.color  = new THREE.Color('white')
                                 obj.material.emissiveIntensity = 0;
                             } else {
+                                // obj.material.color  = new THREE.Color('black')
                                 obj.material.emissiveIntensity = 1;
                                 // obj.material.emissive = new THREE.Color('red');
                             }
@@ -106,7 +117,7 @@ export async function initLoader({
                 }
             }
             if (obj.name === 'maincar2_suv_car_1') {
-                obj.material.color = new THREE.Color('black');
+                // obj.material.color = new THREE.Color('black');
             }
             obj.castShadow = true
         }

@@ -32,6 +32,7 @@ export async function initLoader({
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('/src/assets/libs/draco/gltf/');
     const count = 10;
+    const range = 200
 
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
@@ -39,11 +40,32 @@ export async function initLoader({
     function makeNaive(model) {
         for (let i = 0; i < count; i++) {
             const model2 = model.clone();
-            model2.position.set(Math.random() * 200 - 100, Math.random() * 200 - 100, 0);
+            console.log('makeNaive', model2)
+            model2.updateMatrixWorld()
+            model2.position.set(Math.random() * range - range / 2, Math.random() * range - range / 2, 0);
             sceneModel.add(model2);
-            modelArr.push(model2);
+            model2.traverse((obj) => {
+                if (obj.isSpotLight) {
+                    // obj.target.position.z = -500
+                    obj.add(obj.target)
+                    obj.intensity = 1
+                    obj.distance = 10
+                    const folder = gui.addFolder('spotLight' + obj.name + 1)
+                    folder.add( obj, 'intensity', 0, 100000 )
+                    folder.add( obj, 'distance', 0, 500 )
+                    folder.add( obj, 'angle', 0, 10 )
+                    folder.add( obj, 'power', 0, 3000 )
+                }
+            })
+            // modelArr.push(model2);
+            const folder = gui.addFolder('lexus' + i)
+            folder.add( model2.position, 'x', -1000.0, 1000 )
+            folder.add( model2.position, 'y', -1000.0, 1000 )
         }
         scene.add(sceneModel);
+        const folder = gui.addFolder('lexus' + 'scene')
+        folder.add( sceneModel.position, 'x', -1000.0, 1000 )
+        folder.add( sceneModel.position, 'y', -1000.0, 1000 )
 
     }
 
@@ -84,16 +106,30 @@ export async function initLoader({
             obj.castShadow = true;
         }
         if (obj.isLight) {
-            obj.castShadow = true;
+            obj.castShadow = false;
         }
     });
+
+    model.traverse((obj) => {
+        if (obj.isSpotLight) {
+            // obj.target.position.z = -500
+            obj.intensity = 1
+            obj.distance = 10
+            const folder = gui.addFolder('spotLight' + obj.name + 1)
+            folder.add( obj, 'intensity', 0, 100000 )
+            folder.add( obj, 'distance', 0, 500 )
+            folder.add( obj, 'angle', 0, 10 )
+            folder.add( obj, 'power', 0, 3000 )
+        }
+    })
  
-    console.log('model', model);
+    console.log('model lexus', model);
     model.rotation.x = Math.PI / 2;
     // gui.add( model.rotation, 'y', 0.0, Math.PI * 2, 0.01 )
     model.scale.set(10, 10, 10);
     // makeNaive(model)
     const group = new THREE.Group();
+    // scene.add(model)
     group.add(model);
     scene.add(group);
     group.traverse((obj) => {
@@ -104,7 +140,7 @@ export async function initLoader({
                 // obj.rotateY = Math.PI / 4
                 // obj.rotateZ = Math.PI / 4
                 obj.rotation.x = Math.PI / 4
-                gui.add(obj.rotation, 'x', 0, Math.PI, 0.1);
+                // gui.add(obj.rotation, 'x', 0, Math.PI, 0.1);
 
                 // obj.rotation.y = Math.PI / 2
                 // obj.rotation.z = Math.PI / 2
@@ -112,6 +148,11 @@ export async function initLoader({
             }
         }
     });
+    const folder = gui.addFolder('lexus')
+    folder.add( model.position, 'x', -1000.0, 1000 )
+    folder.add( model.position, 'y', -1000.0, 1000 )
+    console.log('lexus.children[1].target', model.children[1].target, scene)
+
     function animationMesh() {
 
         sceneModel.children.forEach((child) => {

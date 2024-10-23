@@ -31,7 +31,8 @@ export async function initLoader({
     const modelArr = [];
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('/src/assets/libs/draco/gltf/');
-    const count = 10;
+    const count = 100;
+    const range = 400
 
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
@@ -39,7 +40,7 @@ export async function initLoader({
     function makeNaive(model) {
         for (let i = 0; i < count; i++) {
             const model2 = model.clone();
-            model2.position.set(Math.random() * 200 - 100, Math.random() * 200 - 100, 0);
+            model2.position.set(Math.random() * range - range / 2, Math.random() * range - range / 2, 0);
             sceneModel.add(model2);
             modelArr.push(model2);
         }
