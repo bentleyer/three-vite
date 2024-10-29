@@ -107,7 +107,7 @@ export function initGroundBuffer({
             '#include <dithering_fragment>',  // 在 roughness 计算部分插入自定义代码
             `
             #include <dithering_fragment>
-            vec2 uv = vUv * 10.;
+            vec2 uv = vUv * 30.;
             vec2 p0 = floor(uv);
 
             vec2 circles = vec2(0.);
@@ -139,7 +139,7 @@ export function initGroundBuffer({
 
             float intensity = mix(0.01, 0.15, smoothstep(0.1, 0.6, abs(fract(0.05*iTime + 0.5)*2.-1.)));
             vec3 n = vec3(circles, sqrt(1. - dot(circles, circles)));
-            vec3 color = gl_FragColor.rgb + 5.* pow(clamp(dot(n, normalize(vec3(1., 0.7, 0.5))), 0., 1.), 6.);
+            vec3 color = gl_FragColor.rgb + smoothstep(0.9, 0.5, roughnessFactor) * 5.* pow(clamp(dot(n, normalize(vec3(1., 0.7, 0.5))), 0., 1.), 6.);
             gl_FragColor = vec4(color, 1.0);
             
             `
@@ -147,8 +147,8 @@ export function initGroundBuffer({
     };
 
 
-    // gui.add(materialDriving, 'metalness', 0, 2);
-    // gui.add(materialDriving, 'roughness', 0, 2);
+    gui.add(materialDriving, 'metalness', 0, 2);
+    gui.add(materialDriving, 'roughness', 0, 2);
 
     const geometry = new THREE.BufferGeometry();
     // 创建顶点
@@ -177,8 +177,8 @@ export function initGroundBuffer({
     // 创建 UV 坐标
     const uv: number[] = [];
     points.forEach((item) => {
-        uv.push(item.x / 3),
-        uv.push(item.y / 3);
+        uv.push(item.x / 1),
+        uv.push(item.y / 1);
     });
     const uvs = new Float32Array(uv);
 

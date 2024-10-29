@@ -100,14 +100,20 @@ export function initGroundBuffer({
         shader.fragmentShader = shader.fragmentShader.replace(
             '#include <roughnessmap_fragment>',  // 在 roughness 计算部分插入自定义代码
             `
-            #include <roughnessmap_fragment>
+
+            // #include <roughnessmap_fragment>
+            float roughnessFactor = roughness;
+            vec4 texelRoughness = texture2D( roughnessMap, vRoughnessMapUv / 10. );
+
+            // reads channel G, compatible with a combined OcclusionRoughnessMetallic (RGB) texture
+            roughnessFactor *= texelRoughness.g;
             // 生成基于 UV 坐标的噪声
-            float noiseValue = noise(vUv * noiseScale);  // 取噪声值
+            // float noiseValue = noise(vUv * noiseScale);  // 取噪声值
     
-            // 将噪声和贴图值结合，调制粗糙度，使得其不那么重复
-            // roughnessFactor = texelRoughness.g * 0. + (noiseValue / 4.0 + 0.8) * 1.;  // 调整噪声影响力度
-            // roughnessFactor = noiseValue;
-            roughnessFactor = texelRoughness.g * (noiseValue * 2.0) - 0.0;  // 调整噪声影响力度    
+            // // 将噪声和贴图值结合，调制粗糙度，使得其不那么重复
+            // // roughnessFactor = texelRoughness.g * 0. + (noiseValue / 4.0 + 0.8) * 1.;  // 调整噪声影响力度
+            // // roughnessFactor = noiseValue;
+            // roughnessFactor = texelRoughness.g * (noiseValue * 2.0) - 0.0;  // 调整噪声影响力度    
             
             `
         );
@@ -144,8 +150,8 @@ export function initGroundBuffer({
     // 创建 UV 坐标
     const uv: number[] = [];
     points.forEach((item) => {
-        uv.push(item.x / 3),
-        uv.push(item.y / 3);
+        uv.push(item.x / 1),
+        uv.push(item.y / 1);
     });
     const uvs = new Float32Array(uv);
 

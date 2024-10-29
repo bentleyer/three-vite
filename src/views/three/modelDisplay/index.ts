@@ -11,7 +11,8 @@ import { makeInstance } from './hooks/useInstance';
 // import { initGround as initGroundBuffer } from './elements/initGroundBuffer';
 import { usePostProcessing } from './hooks/usePostprocessing';
 import { initGround } from './elements/initGround';
-import { initGroundBuffer } from './elements/initGroundBuffer3';
+import { initGroundBuffer } from './elements/initGroundBuffer';
+// import { initGroundBuffer } from './elements/initGroundBuffer3';
 
 
 // import { initGround } from './elements/initGroundTerrain';
@@ -32,8 +33,10 @@ import { initGroundBuffer } from './elements/initGroundBuffer3';
 
 // import { initLoader } from './elements/initLoaderPeople';
 // import { initLoader } from './elements/initLoaderPeopleColor';
-import { initLoader } from './elements/initLoaderSuv';
+// import { initLoader } from './elements/initLoaderSuv';
 // import { initLoader } from './elements/initLoaderSuvOld';
+import { initLoader } from './elements/initLoaderSuvLight';
+
 
 // import { initLoader } from './elements/initLoaderBus';
 // import { initLoader } from './elements/initLoaderTruck';
@@ -44,6 +47,9 @@ import { initLoader as initLoaderLight } from './elements/initLoaderTrafficlight
 // import { initLoader } from './elements/initLoaderMinivan';
 // import { initLoader } from './elements/initLoaderMini';
 // import { initLoader } from './elements/initLoaderBuilding5';
+
+// streen
+// import { initLoader } from './elements/initLoaderStreetLamp';
 
 
 // weather
@@ -84,12 +90,12 @@ const {
     gui
 });
 
-const {
+// const {
     
-} = await initLoader2({
-    scene,
-    gui
-});
+// } = await initLoader2({
+//     scene,
+//     gui
+// });
 
 // initLoaderLight({
 //     scene,
@@ -128,9 +134,14 @@ initGround({
     gui
 });
 
-const {
-    animationMesh: animationMesh3
-} = initGroundBuffer({
+// const {
+//     animationMesh: animationMesh3
+// } = initGroundBuffer({
+//     scene,
+//     gui,
+// });
+
+initGroundBuffer({
     scene,
     gui,
 });
@@ -153,7 +164,7 @@ function animate() {
     const delta = clock.getDelta();
     // animationMesh(delta)
     // animationMesh2(delta)
-    animationMesh3(delta)
+    // animationMesh3(delta)
     // animationMesh2(delta)
     controls.update();
     stats.update();

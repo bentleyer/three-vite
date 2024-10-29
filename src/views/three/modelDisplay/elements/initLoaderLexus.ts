@@ -113,8 +113,8 @@ export async function initLoader({
     model.traverse((obj) => {
         if (obj.isSpotLight) {
             // obj.target.position.z = -500
-            obj.intensity = 1
-            obj.distance = 10
+            // obj.intensity = 1
+            // obj.distance = 10
             const folder = gui.addFolder('spotLight' + obj.name + 1)
             folder.add( obj, 'intensity', 0, 100000 )
             folder.add( obj, 'distance', 0, 500 )

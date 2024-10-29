@@ -3,7 +3,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import * as THREE from 'three';
 // import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
-import myModel from '@/assets/models/car/3008.glb?url';
+import myModel from '@/assets/models/car/suv.glb?url';
 // import myModel from '@/assets/models/gltf/tree_min.glb?url';
 // import myModel from '@/assets/models/gltf/tree.glb?url';
 // import myModel from '@/assets/models/gltf/tree_mini.glb?url';
