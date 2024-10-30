@@ -2,6 +2,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import * as THREE from 'three';
+import type GUI from 'three/examples/jsm/libs/lil-gui.module.min.js';
 import myModel from '@/assets/models/car/suv_light.glb?url';
 // import myModel from '@/assets/models/car/suv_one_light.glb?url';
 
@@ -85,10 +86,206 @@ const LightTypeMap = {
     'HazardLightsBL': ''
 };
 
+type LightLocation = keyof typeof LightTypeMap
+
+function getLocation(name: string): LightLocation | '' {
+    const lightType = findKeyByValue(LightTypeMap, name);
+    return lightType;
+}
+
+const lightOnMat = {
+    // 近光-白灯
+    'LowBeamHeadlightFR': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity: 2,
+        color: new THREE.Color('white'),
+    },
+    'LowBeamHeadlightFL': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity: 2,
+        color: new THREE.Color('white'),
+    },
+    // 远光-白灯
+    'HighBeamHeadlightFR': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity: 5,
+        color: new THREE.Color('white'),
+    },
+    'HighBeamHeadlightFL': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity: 5,
+        color: new THREE.Color('white'),
+    },
+    // 转向-黄灯
+    'TurnSignalLightFR': {
+        emissive: new THREE.Color('#fff700'),
+        emissiveIntensity: 1,
+        color: new THREE.Color('#fff700'),
+    },
+    'TurnSignalLightFL': {
+        emissive: new THREE.Color('#fff700'),
+        emissiveIntensity: 1,
+        color: new THREE.Color('#fff700'),
+    },
+    'TurnSignalLightBR': {
+        emissive: new THREE.Color('#fff700'),
+        emissiveIntensity: 1,
+        color: new THREE.Color('#fff700'),
+    },
+    'TurnSignalLightBL': {
+        emissive: new THREE.Color('#fff700'),
+        emissiveIntensity: 1,
+        color: new THREE.Color('#fff700'),
+    },
+    // 刹车-红灯
+    'BrakeLightBR': {
+        emissive: new THREE.Color('red'),
+        emissiveIntensity: 1,
+        color: new THREE.Color('white'),
+    },
+    'BrakeLightBL': {
+        emissive: new THREE.Color('red'),
+        emissiveIntensity: 1,
+        color: new THREE.Color('white'),
+    },
+    // 尾灯-红灯
+    'TailLightBR': {
+        emissive: new THREE.Color('red'),
+        emissiveIntensity: 1,
+        color: new THREE.Color('white'),
+    },
+    'TailLightBL': {
+        emissive: new THREE.Color('red'),
+        emissiveIntensity: 1,
+        color: new THREE.Color('white'),
+    },
+    // 行车灯-白灯
+    'DaytimeRunningLightFR': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity: 1,
+        color: new THREE.Color('white'),
+    },
+    'DaytimeRunningLightFL': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity: 1,
+        color: new THREE.Color('white'),
+    },
+};
+
+const lightOffMat = {
+    // 近光-白灯
+    'LowBeamHeadlightFR': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity: 0,
+        color: new THREE.Color('white'),
+    },
+    'LowBeamHeadlightFL': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    // 远光-白灯
+    'HighBeamHeadlightFR': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    'HighBeamHeadlightFL': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    // 转向-黄灯
+    'TurnSignalLightFR': {
+        emissive: new THREE.Color('#fff700'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    'TurnSignalLightFL': {
+        emissive: new THREE.Color('#fff700'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    'TurnSignalLightBR': {
+        emissive: new THREE.Color('#fff700'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    'TurnSignalLightBL': {
+        emissive: new THREE.Color('#fff700'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    // 刹车-红灯
+    'BrakeLightBR': {
+        emissive: new THREE.Color('red'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    'BrakeLightBL': {
+        emissive: new THREE.Color('red'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    // 尾灯-红灯
+    'TailLightBR': {
+        emissive: new THREE.Color('red'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    'TailLightBL': {
+        emissive: new THREE.Color('red'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    // 行车灯-白灯
+    'DaytimeRunningLightFR': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+    'DaytimeRunningLightFL': {
+        emissive: new THREE.Color('white'),
+        emissiveIntensity:  0,
+        color: new THREE.Color('white'),
+    },
+};
+
+export function carEmissiveOn(instance: any, location: LightLocation) {
+    instance.traverse((obj: any) => {
+      if (obj.isMesh) {
+        if (getLocation(obj.name) === location) {
+          // obj.material.emissiveMap = emissiveColor;
+          if (getLocation(obj.name)) {
+            const mat = lightOnMat[location]
+            for (let k in mat) {
+                obj.material[k] = mat[k]
+            }
+          }
+        }
+      }
+    });
+  }
+
+export function carEmissiveOff(instance: any, location: LightLocation) {
+    instance.traverse((obj: any) => {
+      if (obj.isMesh) {
+        if (getLocation(obj.name) === location) {
+            const mat = lightOffMat[location]
+            for (let k in mat) {
+                obj.material[k] = mat[k]
+            }
+        }
+      }
+    });
+  }
+
 
 export async function initLoader({
     scene,
     gui
+}:{
+    gui: GUI
 }) {
     const params = {
         punctualLightsEnabled: true,
@@ -159,10 +356,7 @@ export async function initLoader({
         scene.add(sceneModel);
 
     }
-    function getLocation(name) {
-        const lightType = findKeyByValue(LightTypeMap, name);
-        return lightType || 'default';
-    }
+
     const [ gltf ] = await Promise.all([
         loader.loadAsync(myModel),
     ]);
@@ -172,7 +366,7 @@ export async function initLoader({
             console.log('getLocation', getLocation(obj.name), obj.name);
             // obj.material =  new THREE.MeshPhysicalMaterial()
             obj.material = obj.material.clone();
-            if (getLocation(obj.name) !== 'default') {
+            if (getLocation(obj.name)) {
                 obj.material.color = new THREE.Color('white');
                 obj.material.map = building2BaseColor;
                 // obj.material.emissive = new THREE.Color('#ffc800');
@@ -180,8 +374,9 @@ export async function initLoader({
 
                 obj.material.emissiveMap = building2BaseColor;
                 // obj.material.emissiveMap = emissiveColor;
-                if (getLocation(obj.name) !== 'default') {
+                if (getLocation(obj.name)) {
                     const folder = gui.addFolder(getLocation(obj.name));
+                    folder.close()
                     folder.addColor(obj.material, 'emissive');
                     folder.addColor(obj.material, 'color');
 
@@ -193,10 +388,12 @@ export async function initLoader({
                         (val) => {
                             if (!val) {
                                 // obj.material.color  = new THREE.Color('white')
-                                obj.material.emissiveIntensity = 0;
+                                carEmissiveOff(model, getLocation(obj.name))
+                                // obj.material.emissiveIntensity = 0;
                             } else {
+                                carEmissiveOn(model, getLocation(obj.name))
                                 // obj.material.color  = new THREE.Color('black')
-                                obj.material.emissiveIntensity = 1;
+                                // obj.material.emissiveIntensity = 1;
                                 // obj.material.emissive = new THREE.Color('red');
                             }
                         }
