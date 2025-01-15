@@ -100,7 +100,7 @@ export async function initLoader({
 
 
             }
-            if (obj.name.includes('lexus_car_2')) {
+            if (obj.name.includes('lexus_car001') && obj.name === 'lexus_car001_2') {
                 obj.material.color = new THREE.Color('white');
             }
             obj.castShadow = true;

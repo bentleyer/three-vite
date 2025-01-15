@@ -52,7 +52,7 @@ export async function initLoader({
                 obj.material.map = building2BaseColor
                 console.log('obj.material', obj)
             }
-            if (obj.name.includes('truck_car_6')) {
+            if (obj.name.includes('truck_car002') && obj.name === 'truck_car002_5') {
                 obj.material.color = new THREE.Color('#5D98BB')
             }
             obj.castShadow = true
@@ -60,7 +60,7 @@ export async function initLoader({
     });
     console.log('model', model)
     // 宽，高，长
-    model.scale.set(1, 1, 5);
+    // model.scale.set(1, 1, 5);
 
     model.rotation.x = Math.PI / 2;
     // gui.add( model.rotation, 'y', 0.0, Math.PI * 2, 0.01 )

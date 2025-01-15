@@ -12,6 +12,7 @@ attribute vec3 size;
 // attribute vec4 color;
 varying vec3 vPosition;
 varying vec3 vWPosition;
+varying vec3 vCameraPosition;
 
 
 void main() {
@@ -31,6 +32,7 @@ void main() {
     // 计算世界坐标
     vec4 worldPosition = modelMatrix * (matrix * vec4( position, 1.0 ));
     vWPosition = worldPosition.xyz;
+    vCameraPosition = cameraPosition.xyz;
 
     vec4 mvPosition = viewMatrix * worldPosition;
 

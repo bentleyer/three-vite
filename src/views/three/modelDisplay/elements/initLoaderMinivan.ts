@@ -62,7 +62,7 @@ export async function initLoader({
                 console.log('obj.material', obj);
 
             }
-            if (obj.name.includes('minivan_car_4')) {
+            if (obj.name.includes('网格') && obj.name === '网格_3') {
                 obj.material.color = new THREE.Color('white');
             }
             obj.castShadow = true;
