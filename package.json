@@ -13,9 +13,14 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@epicgames-ps/lib-pixelstreamingfrontend-ue5.5": "^1.0.1",
+    "@epicgames-ps/lib-pixelstreamingfrontend-ui-ue5.5": "^1.0.0",
     "@tweenjs/tween.js": "^23.1.2",
     "dat.gui": "^0.7.9",
     "gsap": "^3.12.5",
+    "jss": "^10.10.0",
+    "jss-plugin-camel-case": "^10.10.0",
+    "jss-plugin-global": "^10.10.0",
     "logitech-g29": "^2.0.0",
     "mitt": "^3.0.1",
     "pinia": "^2.1.7",

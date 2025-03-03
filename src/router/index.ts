@@ -87,6 +87,11 @@ const router = createRouter({
             path: '/rain',
             name: 'rain',
             component: () => import('@/views/three/rain/index.vue')
+        },
+        {
+            path: '/pixelStreaming',
+            name: 'pixelStreaming',
+            component: () => import('@/views/ue/pixelStreaming.vue')
         }
     ]
 });
