@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@epicgames-ps/lib-pixelstreamingfrontend-ue5.5": "^1.0.1",
-    "@epicgames-ps/lib-pixelstreamingfrontend-ui-ue5.5": "^1.0.0",
+    "@epicgames-ps/lib-pixelstreamingfrontend-ui-ue5.5": "1.0.2",
     "@tweenjs/tween.js": "^23.1.2",
     "dat.gui": "^0.7.9",
     "gsap": "^3.12.5",
