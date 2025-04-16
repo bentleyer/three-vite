@@ -33,13 +33,13 @@ import { initGroundBuffer } from './elements/initGroundBuffer';
 
 // import { initLoader } from './elements/initLoaderPeople';
 // import { initLoader } from './elements/initLoaderPeopleColor';
-import { initLoader } from './elements/initLoaderSuv';
+// import { initLoader } from './elements/initLoaderBarrel';
 // import { initLoader } from './elements/initLoaderSuvOld';
 // import { initLoader } from './elements/initLoaderSuvLight';
 
 
 // import { initLoader } from './elements/initLoaderBus';
-// import { initLoader } from './elements/initLoaderTruck';
+import { initLoader } from './elements/initLoaderTruck';
 // import { initLoader } from './elements/initLoaderLexus';
 // import { initLoader } from './elements/initLoaderLexusDongFeng';
 
