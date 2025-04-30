@@ -21,11 +21,11 @@ window.addEventListener('keyup', (e) => {
     if (e.code === 'Space') {
         console.log('addEventListener', e);
         const descriptor = {
-            LoadLevel: '/Game/Maps/Level_2',
-            PlayerCharacter: {
-                Name: 'Shinobi',
-                Skin: 'Dynasty',
-            },
+            LoadLevel: 'map1',
+            params: {
+                url: 'http://dev-qianxing.risenlighten.com/#/sampleRoad/cartest/?id=14879&record_id=19161&sim_record_id=559424726808713568',
+                token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjQ2LCJvaWQiOjI1LCJuYW1lIjoi5pyx6bmP6aOeIiwiaWRlbnRpdHkiOiJub3JtYWwiLCJwZXJtaXNzaW9ucyI6W10sImlzcyI6InVzZXIiLCJzdWIiOiJMYXNWU2ltIiwiZXhwIjoxNzQ1MjE3MTI2LCJuYmYiOjE3NDQ2MTIzMjYsImlhdCI6MTc0NDYxMjMyNiwianRpIjoiNDYifQ.R3HqblsW-f6UM1BnVkb9ATWjSOXQFi5TVuaFmIgflTA'
+            }
         };
         stream.emitUIInteraction(descriptor);
     }
