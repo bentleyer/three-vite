@@ -8,7 +8,8 @@ import myModel from '@/assets/models/car/truck.glb?url';
 // import myModel from '@/assets/models/gltf/tree.glb?url';
 // import myModel from '@/assets/models/gltf/tree_mini.glb?url';
 // import myModel from '@/assets/models/gltf/bwm330bm_black.glb?url';
-import textureBaseColor from '@/assets/images/textures/car/Texture_truck_basecolor_1024.png'
+// import myModel from '@/assets/models/door/door.glb?url';
+import textureBaseColor from '@/assets/images/textures/car/Texture_truck_basecolor_1024.png';
 
 
 export async function initLoader({
@@ -18,7 +19,7 @@ export async function initLoader({
     // const hdrJpgEquirectangularMap = new THREE.CubeTextureLoader().load([ hdr_p_x, hdr_n_x, hdr_p_y, hdr_n_y, hdr_p_z, hdr_n_z ]);
     const textureLoader = new THREE.TextureLoader(); //纹理 被加载管理器统一管理
 
-    const building2BaseColor= textureLoader.load(textureBaseColor);
+    const building2BaseColor = textureLoader.load(textureBaseColor);
 
     building2BaseColor.flipY = false;
     const sceneModel = new THREE.Group();
@@ -41,29 +42,37 @@ export async function initLoader({
 
     }
 
-    const [gltf] = await Promise.all([
+    const [ gltf ] = await Promise.all([
         loader.loadAsync(myModel),
     ]);
     const model = gltf.scene;
     model.traverse((obj) => {
         if (obj.isMesh) {
             if (obj.name === 'truck_light') {
-                obj.material.color = new THREE.Color('white')
-                obj.material.map = building2BaseColor
-                console.log('obj.material', obj)
+                obj.material.color = new THREE.Color('white');
+                obj.material.map = building2BaseColor;
+                console.log('obj.material', obj);
             }
             if (obj.name.includes('truck_car002') && obj.name === 'truck_car002_5') {
-                obj.material.color = new THREE.Color('#5D98BB')
+                obj.material.color = new THREE.Color('#5D98BB');
             }
-            obj.castShadow = true
+            obj.castShadow = true;
         }
     });
-    console.log('model', model)
+    console.log('model', model);
     // 宽，高，长
     // model.scale.set(1, 1, 5);
 
     model.rotation.x = Math.PI / 2;
-    // gui.add( model.rotation, 'y', 0.0, Math.PI * 2, 0.01 )
+    // model.scale.set(10, 10, 10);
+    const params = {
+        scale: 1
+    };
+
+    gui.add(params, 'scale', 0.1, 10, 0.1).onChange((value) => {
+        model.scale.set(value, value, value);
+    });
+
     // makeNaive(model)
     scene.add(model);
     function animationMesh() {
