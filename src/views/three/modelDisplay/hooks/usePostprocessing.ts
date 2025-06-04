@@ -62,9 +62,9 @@ export function usePostProcessing({
     const outputPass = new OutputPass();
 
     const finalComposer = new EffectComposer(renderer);
-    finalComposer.addPass(renderScene);
-    finalComposer.addPass(mixPass);
-    finalComposer.addPass(outputPass);
+    // finalComposer.addPass(renderScene);
+    // finalComposer.addPass(mixPass);
+    // finalComposer.addPass(outputPass);
 
 
     const bloomFolder = gui.addFolder('bloom');
@@ -86,9 +86,9 @@ export function usePostProcessing({
         bloomPass.radius = Number(value);
 
     });
-    // composer.addPass(renderScene);
-    // composer.addPass(bloomPass);
-    // composer.addPass(outputPass);
+    composer.addPass(renderScene);
+    composer.addPass(bloomPass);
+    composer.addPass(outputPass);
     return {
         bloomComposer,
         finalComposer,

@@ -52,7 +52,7 @@ export async function initLoader({
                 obj.material.map = building2BaseColor
                 console.log('obj.material', obj)
             }
-            if (obj.name.includes('bus_car_1')) {
+            if (obj.name.includes('网格090') && obj.name === '网格090') {
                 obj.material.color = new THREE.Color('#5D98BB')
             }
             obj.castShadow = true

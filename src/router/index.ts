@@ -92,6 +92,13 @@ const router = createRouter({
             path: '/depthRain',
             name: 'depthRain',
             component: () => import('@/views/three/depthRain/index.vue')
+
+        },
+        {
+            path: '/pixelStreaming',
+            name: 'pixelStreaming',
+            component: () => import('@/views/ue/pixelStreaming.vue')
+
         }
     ]
 });

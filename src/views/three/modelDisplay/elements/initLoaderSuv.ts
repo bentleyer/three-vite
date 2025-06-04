@@ -3,7 +3,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import * as THREE from 'three';
 // import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
-import myModel from '@/assets/models/car/suv.glb?url';
+import myModel from '@/assets/models/car/bus.glb?url';
 // import myModel from '@/assets/models/gltf/tree_min.glb?url';
 // import myModel from '@/assets/models/gltf/tree.glb?url';
 // import myModel from '@/assets/models/gltf/tree_mini.glb?url';
@@ -116,8 +116,8 @@ export async function initLoader({
                     obj.layers.toggle(2);
                 }
             }
-            if (obj.name === 'maincar2_suv_car_1') {
-                // obj.material.color = new THREE.Color('black');
+            if (obj.name === '网格276') {
+                obj.material.color = new THREE.Color('green');
             }
             obj.castShadow = true
         }

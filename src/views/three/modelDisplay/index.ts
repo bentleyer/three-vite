@@ -33,20 +33,20 @@ import { initGroundBuffer } from './elements/initGroundBuffer';
 
 // import { initLoader } from './elements/initLoaderPeople';
 // import { initLoader } from './elements/initLoaderPeopleColor';
-// import { initLoader } from './elements/initLoaderSuv';
+// import { initLoader } from './elements/initLoaderBarrel';
 // import { initLoader } from './elements/initLoaderSuvOld';
-import { initLoader } from './elements/initLoaderSuvLight';
+// import { initLoader } from './elements/initLoaderSuvLight';
 
 
 // import { initLoader } from './elements/initLoaderBus';
-// import { initLoader } from './elements/initLoaderTruck';
-import { initLoader as initLoader2 } from './elements/initLoaderLexus';
+import { initLoader } from './elements/initLoaderTruck';
+// import { initLoader } from './elements/initLoaderLexus';
 // import { initLoader } from './elements/initLoaderLexusDongFeng';
 
 import { initLoader as initLoaderLight } from './elements/initLoaderTrafficlight';
 // import { initLoader } from './elements/initLoaderMinivan';
 // import { initLoader } from './elements/initLoaderMini';
-// import { initLoader } from './elements/initLoaderBuilding5';
+
 
 // streen
 // import { initLoader } from './elements/initLoaderStreetLamp';
@@ -56,6 +56,8 @@ import { initLoader as initLoaderLight } from './elements/initLoaderTrafficlight
 import { initRain } from './elements/initRain';
 import { initParticles } from './elements/initParticles';
 import { initCloud  } from './elements/initCloud';
+import { initSnow  } from './elements/weather/initSnow';
+import {  useFog  } from './elements/weather/fog/useFog';
 
 
 const clock = new THREE.Clock();
@@ -111,6 +113,22 @@ const {
 // } = initRain({
 //     scene,
 //     gui
+// });
+
+
+// const {
+//     animationMesh: animationMesh2,
+//     handleClick: handleClickSnow,
+//     handleClick2: handleClickSnow2
+// } = initSnow({
+//     scene,
+//     gui,
+//     camera
+// });
+
+// useFog({
+//     scene,
+//     gui,
 // });
 
 // const {
@@ -215,9 +233,16 @@ animate();
 function handleClick() {
     //   state.camera.rotation.set(0, 0, baseDate.main_vehicle.phi - Math.PI / 2)
     console.log('handleClick', camera, scene);
+    handleClickSnow()
+}
+
+function handleClick2() {
+    //   state.camera.rotation.set(0, 0, baseDate.main_vehicle.phi - Math.PI / 2)
+    handleClickSnow2()
 }
 
 export {
     handleClick,
+    handleClick2
 };
 

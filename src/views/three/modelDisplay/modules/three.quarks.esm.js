@@ -1398,9 +1398,16 @@ var particle_frag = `
 
 #include <tile_pars_fragment>
 #include <soft_pars_fragment>
+varying vec3 vWPosition;
+varying vec3 vCameraPosition;
 
 void main() {
+    float dis = distance(vWPosition.xyz, vCameraPosition.xyz);
 
+    // 如果距离小于 10 米，则不显示该像素
+    if (dis < 50.0) {
+        discard;  // 丢弃该片段，不进行渲染
+    }
     #include <clipping_planes_fragment>
     
     vec3 outgoingLight = vec3( 0.0 );
@@ -1603,9 +1610,11 @@ var particle_vert = `
 attribute vec3 offset;
 attribute float rotation;
 attribute vec3 size;
+varying vec3 vWPosition;
+varying vec3 vCameraPosition;
 
 void main() {
-	
+
     vec2 alignedPosition = position.xy * size.xy;
     
     vec2 rotatedPosition;
@@ -1627,6 +1636,13 @@ void main() {
 #endif
 
 	vColor = color;
+    // 计算世界坐标
+    // 计算逆视图矩阵，恢复世界空间坐标
+    mat4 inverseViewMatrix = inverse(viewMatrix);
+
+    vec4 worldPosition = inverseViewMatrix * mvPosition;
+    vWPosition = worldPosition.xyz;
+    vCameraPosition = cameraPosition.xyz;
 
 	gl_Position = projectionMatrix * mvPosition;
 

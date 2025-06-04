@@ -20,6 +20,7 @@
         <RouterLink to="/g29">g29</RouterLink>
         <RouterLink to="/rain">rain</RouterLink>
         <RouterLink to="/depthRain">Car</RouterLink>
+        <RouterLink to="/pixelStreaming">pixelStreaming</RouterLink>
 
     <!-- <TheWelcome /> -->
     </main>

@@ -1,7 +1,9 @@
 
 <template>
     <div id="container">
-        <!-- <Button @click="test.handleClick">test</Button> -->
+        <!-- <Button @click="test.handleClick">test</Button>
+        <Button @click="test.handleClick2">test2</Button> -->
+
     </div>
 </template>
 <script lang="ts" setup>

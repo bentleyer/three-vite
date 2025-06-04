@@ -53,9 +53,9 @@ const LightTypeNameMap = {
 
 const LightTypeMap = {
     'LowBeamHeadlightFR': 'Low_beam_R',
-    'LowBeamHeadlightFL': 'High_beams_L',
+    'LowBeamHeadlightFL': 'Low_beam_L',
     'HighBeamHeadlightFR': 'High_beams_R',
-    'HighBeamHeadlightFL': 'Low_beam_L',
+    'HighBeamHeadlightFL': 'High_beams_L',
     'TurnSignalLightFR': 'Front_turn_signalwarning_light_R',
     'TurnSignalLightFL': 'Front_turn_signalwarning_light_L',
     'TurnSignalLightBR': 'Rear_turn_signalwarning_light_R',
@@ -269,16 +269,19 @@ export function carEmissiveOn(instance: any, location: LightLocation) {
 
 export function carEmissiveOff(instance: any, location: LightLocation) {
     instance.traverse((obj: any) => {
-      if (obj.isMesh) {
+        if (obj.isMesh) {
         if (getLocation(obj.name) === location) {
             const mat = lightOffMat[location]
             for (let k in mat) {
                 obj.material[k] = mat[k]
             }
         }
-      }
+        }
     });
-  }
+}
+
+
+
 
 
 export async function initLoader({
@@ -405,8 +408,9 @@ export async function initLoader({
         }
     });
     console.log('model', model);
+    model.position.set(100, 100, 0)
     model.rotation.x = Math.PI / 2;
-    // gui.add( model.rotation, 'y', 0.0, Math.PI * 2, 0.01 )
+    gui.add( model.rotation, 'y', 0.0, Math.PI * 2, 0.01 )
     model.scale.set(10, 10, 10);
     // makeNaive(model)
     scene.add(model);

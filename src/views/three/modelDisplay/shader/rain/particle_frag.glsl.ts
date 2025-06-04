@@ -11,9 +11,16 @@ export default /* glsl */ `
 #include <soft_pars_fragment>
 varying vec3 vPosition;
 varying vec3 vWPosition;
+varying vec3 vCameraPosition;
+
 
 void main() {
+    float dis = distance(vWPosition.xy, vCameraPosition.xy);
 
+    // 如果距离小于 10 米，则不显示该像素
+    if (dis < 5.0) {
+        discard;  // 丢弃该片段，不进行渲染
+    }
     #include <clipping_planes_fragment>
     
     vec3 outgoingLight = vec3( 0.0 );
