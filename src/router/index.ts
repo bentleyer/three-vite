@@ -87,6 +87,11 @@ const router = createRouter({
             path: '/rain',
             name: 'rain',
             component: () => import('@/views/three/rain/index.vue')
+        },
+        {
+            path: '/depthRain',
+            name: 'depthRain',
+            component: () => import('@/views/three/depthRain/index.vue')
         }
     ]
 });
