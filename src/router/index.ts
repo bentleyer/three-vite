@@ -95,6 +95,12 @@ const router = createRouter({
 
         },
         {
+            path: '/animation',
+            name: 'animation',
+            component: () => import('@/views/three/animation/index.vue')
+
+        },
+        {
             path: '/pixelStreaming',
             name: 'pixelStreaming',
             component: () => import('@/views/ue/pixelStreaming.vue')
