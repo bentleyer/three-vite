@@ -21,6 +21,7 @@
         <RouterLink to="/rain">rain</RouterLink>
         <RouterLink to="/depthRain">Car</RouterLink>
         <RouterLink to="/pixelStreaming">pixelStreaming</RouterLink>
+        <RouterLink to="/digitalTwin">数字孪生</RouterLink>
 
     <!-- <TheWelcome /> -->
     </main>

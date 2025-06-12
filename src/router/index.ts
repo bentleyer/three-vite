@@ -99,6 +99,12 @@ const router = createRouter({
             name: 'pixelStreaming',
             component: () => import('@/views/ue/pixelStreaming.vue')
 
+        },
+        {
+            path: '/digitalTwin',
+            name: 'digitalTwin',
+            component: () => import('@/views/three/digitalTwin/index.vue')
+
         }
     ]
 });

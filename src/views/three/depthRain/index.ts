@@ -9,6 +9,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 // import myModel from '@/assets/models/gltf/Audibm_min.glb?url';
 // import myModel from '@/assets/models/gltf/Audi.glb?url';
 import myModel from '@/assets/models/gltf/ferrari.glb?url';
+import picture from '@/assets/images/textures/ferrari_ao.png';
 
 
 // 构建目标路径
@@ -142,7 +143,10 @@ function animationMesh() {
     });
 }
 
+
 function initLoader() {
+
+    const shadow = new THREE.TextureLoader().load(picture);
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('/src/assets/libs/draco/gltf/');
 
@@ -170,6 +174,15 @@ function initLoader() {
 
         carModel.getObjectByName('glass').material = glassMaterial;
         model.rotation.x = Math.PI / 2;
+        const mesh = new THREE.Mesh(
+            new THREE.PlaneGeometry(0.655 * 4, 1.3 * 4),
+            new THREE.MeshBasicMaterial({
+                map: shadow, blending: THREE.MultiplyBlending, toneMapped: false, transparent: true
+            })
+        );
+        mesh.rotation.x = -Math.PI / 2;
+        mesh.renderOrder = 2;
+        carModel.add(mesh);
 
         // makeBatch(model)
         // makeInstance(model);
